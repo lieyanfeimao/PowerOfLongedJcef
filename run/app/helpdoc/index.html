@@ -1,0 +1,1413 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>JCEF帮助文档</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/docs.min.css">
+	<link rel="stylesheet" type="text/css" href="css/shCoreDefault.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/docs.min.js"></script>
+	<script type="text/javascript" src="js/shCore.js"></script>
+	<script>
+		$(function(){
+			SyntaxHighlighter.all();//执行代码高亮
+		});
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 col-lg-3">
+				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm">
+					<ul class="nav bs-docs-sidenav">
+					  
+						<li>
+						  <a href="#jcef">JCEF使用帮助</a>
+						  <ul class="nav">
+							<li><a href="#jcef-sm">相关说明</a></li>
+							<li><a href="#jcef-by">JCEF win64编译</a></li>
+							<li><a href="#jcef-cj">工程创建</a></li>
+							<li><a href="#jcef-java">JS与JAVA代码交互</a></li>
+							<li><a href="#jcef-menu">鼠标右键菜单</a></li>
+							<li><a href="#jcef-tab">tab形式展示浏览器</a></li>
+							<li><a href="#jcef-doc">开发文档阅读指南</a></li>
+							<li><a href="#jcef-js">脚本注入技巧</a></li>
+						  </ul>
+						</li>
+						<li>
+						  <a href="#pol">PowerOfLongedJcef文档</a>
+						  <ul class="nav">
+							<li><a href="#pol-st">开始</a></li>
+							<li><a href="#pol-bz">项目相关帮助</a></li>
+						  </ul>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-md-9 col-lg-9">
+				<div class="bs-docs-section">
+					<div id="jcef">
+						<h2>JCEF使用帮助</h2>
+						<p>JCEF开发实例</p>
+					</div>
+					
+					
+					<div id="jcef-sm">
+						<h3>相关说明</h3>
+						<p>
+							Java Chromium嵌入式框架（JCEF）。 一个简单的框架，用于使用Java编程语言在其他应用程序中嵌入基于Chromium的浏览器
+						</p>
+						<p>
+							JCEF项目地址：<a href="https://bitbucket.org/chromiumembedded/java-cef/src/master/" target="_blank">https://bitbucket.org/chromiumembedded/java-cef/src/master/</a>
+						</p>
+						<p>
+							我使用JCEF是为了用它开发自己的桌面应用程序。相对于vc,vb,swing这些，使用浏览器外壳，利用网络上众多流行的Web UI开源框架（如Easyui）做界面无疑是最快的，这可以让我们有更多的时间去实现业务逻辑，而不用被那些该死的UI控件折磨。想一想，原先做个表格，一整套界面做完大半天过去了，现在，引入JS、CSS，一瞬间做出一个高大上的界面，效率不言而喻。
+						</p>
+						<p>
+							初次接触JCEF，光是编译就花了一天时间。接着发现在网上找不到什么中文资料，利用空闲时间靠不断的网络搜索加翻译英文帮助文档了解它。断断续续到现在，终于做出了自己想要的软件。
+						</p>
+						<p>
+							特意写这系列文章来给想学习JCEF的同学引路，也开源了自己的个人项目供大家参考：<a href="javascript:alert('乱点什么，在下面！')">PowerOfLongedJcef</a>
+						</p>
+						<p>
+							你渴望力量吗？JCEF==力量！
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							JCEF帮助文档在线地址【含中文翻译】：<a href="doc/index.html" target="_blank">http://www.xuanyimao.com/jcef/doc/index.html</a>（文档在百度网盘有）
+						</p>
+						<p>
+							关于翻译：前半部分使用翻译软件，后面的自己写了个程序自动翻译进去的，部分修正过，基本上没大问题，对照英文可以看懂（没办法，手动太累）
+						</p>
+						<p>
+							JCEF帮助文档【含中文翻译】、JCEF帮助文档原文件【html】、JCEF win64相关编译文件（其他版本请自行编译）下载地址：<a href="https://pan.baidu.com/s/1C7NyoNWEc7sph7GvZ1oaqg" target="_blank">https://pan.baidu.com/s/1C7NyoNWEc7sph7GvZ1oaqg</a>&nbsp; 提取码：hfk2
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							个人使用心得
+						</p>
+						<p>
+							优点：很强大，和谷歌浏览器差不多。
+						</p>
+						<p>
+							缺点：
+						</p>
+						<p>
+							1.JS调用java代码的方式让人很不习惯，可能是我没找到更好的方法，执行java方法得到的结果是通过回调得到，意味着var a=test();这样的语句得写成
+						</p>
+						<pre class="brush:html;toolbar:false">
+						var a;
+						window.test({
+						...
+						onSuccess:function(response){
+						a=response;
+						...
+						}
+						});</pre>
+						<p>
+							2.我目前没找到方法监听response返回的数据，这意味着类似获取url返回数据的操作很难实现，虽然可以通过脚本注入的方式，不过那样太麻烦
+						</p>
+						<p>
+							3.打开淘宝这样的网站容易卡死，这让我有时想放弃它(也可能是我代码有问题，哈哈)。不过我更期待它未来的版本会更加流畅，至少我感觉它是免费的里面的最牛的。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							为什么要使用JCEF？
+						</p>
+						<p>
+							因为强大，免费开源。如果资金宽裕，可以考虑JxBrowser，个人感觉不错，但是因为没钱，放弃了。有兴趣的可以去申请个免费的许可证，体验下JxBrowser。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							吐槽：编译JCEF的诸多软件安装实在是让人受不了，这或许是很多人望而却步的原因。软件安装好了编译不一定成功，软件版本不对也可能编译不成功，出了问题很难搜到答案，还好我在砸电脑之前编译成功了。编译完之后，C盘变成了红色。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							开源项目：
+						</p>
+						<p>
+							PowerOfLongedJcef【注：本项目在win10&nbsp;64位系统上开发，不保证其他系统可以直接运行】
+						</p>
+						<p>
+							<a href="https://github.com/lieyanfeimao/PowerOfLongedJcef.git" target="_blank">github</a>：<a href="https://github.com/lieyanfeimao/PowerOfLongedJcef.git" target="_blank">https://github.com/lieyanfeimao/PowerOfLongedJcef.git</a><br/>
+							<a href="https://gitee.com/edadmin/PowerOfLongedJcef.git" target="_blank">码云</a>：<a href="https://gitee.com/edadmin/PowerOfLongedJcef.git" target="_blank">https://gitee.com/edadmin/PowerOfLongedJcef.git</a>
+						</p>
+						<p>
+							采用JCEF+Easyui设计，内含功能：代码模板生成器、脚本管理、中文帮助文档、简单的脚本注入示例等【百度自动搜索（弹出对话框输入一句话，程序自动填充搜索框，点击搜索按钮），简单的自动注入】，需要JDK1.8。后续会慢慢增加新功能。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							工作繁重，学习不止，不接受任何形式的问题解答，不帮忙编译JCEF其他版本，请理解，谢谢！【有问题请自行对照文档和demo找解决方案或百度谷歌或自己想办法】——玄翼猫，<a href="http://www.xuanyimao.com" target="_blank">http://www.xuanyimao.com</a>
+						</p>
+					</div>
+					<div id="jcef-by">
+						<h3>JCEF&nbsp;&nbsp;win64编译</h3>
+						<p>
+							如果需要自己编译JCEF，可参考以下文档。
+						</p>
+						<p>
+							<a href="https://bitbucket.org/chromiumembedded/java-cef/wiki/BranchesAndBuilding#markdown-header-building-from-source" target="_blank">https://bitbucket.org/chromiumembedded/java-cef/wiki/BranchesAndBuilding#markdown-header-building-from-source</a>
+						</p>
+						<p>
+							虽然是英文的，但是并不难看懂，实在看不懂，在谷歌浏览器右键，选择“翻译成中文”
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							windows下编译需安装软件（请以自己的机机型号和最新的文档为准）【我的是Win10】
+						</p>
+						<p>
+							Cmake 2.8.12.2或更新版本（建议配置环境变量，在Path下加入Cmake的bin目录路径）
+						</p>
+						<p>
+							Git
+						</p>
+						<p>
+							JDK 1.7或1.8，我用的1.8。
+						</p>
+						<p>
+							Python 2.6以上的版本，不支持版本号为3的
+						</p>
+						<p>
+							Visual studio 2015。安装时别默认，默认不安装Visual C++，勾选&quot;Visual C++&quot;和&quot;通用windows开发工具&quot;下的&quot;tools和Windows 10 SDK&quot;安装。
+						</p>
+						<p>
+							PS：还得准备个VPN，Cmake编译时需要下载国外的资源
+						</p>
+						<p>
+							软件装好了，一般不会有什么问题。用到的软件均可在此地址获取：<a href="https://pan.baidu.com/s/1C7NyoNWEc7sph7GvZ1oaqg" target="_blank">https://pan.baidu.com/s/1C7NyoNWEc7sph7GvZ1oaqg</a>&nbsp; 提取码：hfk2
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							注意的地方：
+						</p>
+						<p>
+							1.win10配置java环境变量 Path 需要用完整的路径，不能用 %JAVA_HOME%，不用完整路径会导致javac用不了
+						</p>
+						<p>
+							2.python安装好以后需要在环境变量 Path 配置安装路径
+						</p>
+						<p>
+							3.网上说VS2015安装时最好是用默认路径，我没去测试装其他盘有什么影响，投其所好吧。
+						</p>
+						<p>
+							以上两点不影响编译，VS没装好会影响cmake编译。
+						</p>
+						<p>
+							有个小坑，我用阿里云的windows服务器编译卡在了系统版本那一步，最后放弃了。所以不建议使用云服务器。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							在磁盘下新建一个jcef目录（名字随便取），使用cmd命令行进入此目录
+						</p>
+						<p>
+							下载jcef工程，建议用git下载下来，Cmake脚本中含有和git相关的代码，从其他地方拷贝过来可能会编译Cmake失败
+						</p>
+						<p>
+							git clone https://bitbucket.org/chromiumembedded/java-cef.git src
+						</p>
+						<p>
+							项目下载完之后，进入src目录，打开CMakeLists.txt，把从<b>message(STATUS &quot;Downloading clang-format from Google Storage...&quot;)</b>开始的这一块代码给注释了。clang-format这玩意不需要用到，下载很耗时间。
+						</p>
+						<p>
+							<img src="image/by1.png" class="img-responsive"/>
+						</p>
+						<p>
+							cmd命令行进入src目录
+						</p>
+						<p>
+							cd src
+						</p>
+						<p>
+							创建jcef_build目录，不要使用其他名字
+						</p>
+						<p>
+							mkdir jcef_build &amp;&amp; cd jcef_build
+						</p>
+						<p>
+							执行cmake操作，可以使用Cmake bin目录下的 cmake-gui来操作
+						</p>
+						<p>
+							cmake -G &quot;Visual Studio 14 Win64&quot; ..
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							cmake完成后，jcef_build目录下会生成vs项目。双击jcef.sln打开工程，设置为Release和x64,点击菜单项“生成”&gt;“生成解决方案”，等待编译完成
+						</p>
+						<p>
+							<img src="image/win641.png" class="img-responsive"/>
+						</p>
+						<p>
+							cmd命令行进入src/tools目录下，执行命令
+						</p>
+						<p>
+							compile.bat win64
+						</p>
+						<p>
+							编译完成后，使用以下命令测试是否成功，出现浏览器窗口表示成功了。
+						</p>
+						<p>
+							run.bat win64 Release detailed
+						</p>
+						<p>
+							执行脚本，生成项目需要用到的文件，文件生成在 src\binary_distrib\win64\bin\lib 目录下
+						</p>
+						<p>
+							make_distrib.bat win64
+						</p>
+						<p>
+							<strong>岁在甲子，天下大吉！</strong>
+						</p>
+					</div>
+					<div id="jcef-cj">
+						<h3>工程创建</h3>
+						<p>
+							如果自己没有编译后的JCEF文件，可下载本站提供的编译文件：<b>自己翻到上面去找百度网盘链接</b>
+						</p>
+						<p>
+							本示例教程开源项目地址：<br/>
+							<a href="https://github.com/lieyanfeimao/JcefTest.git" target="_blank">github</a>：<a href="https://github.com/lieyanfeimao/JcefTest.git" target="_blank">https://github.com/lieyanfeimao/JcefTest.git</a><br/>
+							<a href="https://gitee.com/edadmin/JcefTest.git" target="_blank">码云</a>：<a href="https://gitee.com/edadmin/JcefTest.git" target="_blank">https://gitee.com/edadmin/JcefTest.git</a>
+						</p>
+						<p>
+							首先，打开世界上最好的开发工具eclipse，新建普通java工程。工程编码建议设置为UTF-8
+						</p>
+						<p>
+							<img src="image/cj1.png" class="img-responsive"/>
+						</p>
+						<p>
+							新建lib目录，引入所需jar包，Add to build path
+						</p>
+						<p>
+							<img src="image/cj2.png" class="img-responsive"/>
+						</p>
+						<p>
+							<img src="image/cj3.png" class="img-responsive"/>
+						</p>
+						<p>
+							项目&gt;Properties(属性)&gt;Java Build Path，展开Jdk，选中Native library location，点击Edit，选择JCEF的二进制文件目录
+						</p>
+						<p>
+							<img src="image/cj4.png" class="img-responsive"/>
+						</p>
+						<p>
+							<img src="image/cj5.png" class="img-responsive"/>
+						</p>
+						<p>
+							使用世界上最好的开发语言编写测试类，运行。
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class TestFrame extends JFrame{
+							
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = -7410082787754606408L;
+
+							public static void main(String[] args) {
+								new TestFrame();
+							}
+							
+							public TestFrame() {
+								//是否Linux系统
+								boolean useOSR=OS.isLinux();
+								//是否透明
+								boolean isTransparent=false;
+								//添加Handler，在CEFAPP状态为终止时退出程序
+								CefApp.addAppHandler(new CefAppHandlerAdapter(null) {
+									@Override
+									public void stateHasChanged(org.cef.CefApp.CefAppState state) {
+										// Shutdown the app if the native CEF part is terminated
+										if (state == CefAppState.TERMINATED) System.exit(0);
+									}
+								});
+								
+								CefSettings settings = new CefSettings();
+								settings.windowless_rendering_enabled = useOSR;
+								//获取CefApp实例
+								CefApp cefApp=CefApp.getInstance(settings);
+								//创建客户端实例
+								CefClient cefClient = cefApp.createClient();
+								//创建浏览器实例
+								CefBrowser cefBrowser = cefClient.createBrowser(&quot;http://www.baidu.com&quot;, useOSR, isTransparent);
+								
+								//将浏览器UI添加到窗口中
+								
+								getContentPane().add(cefBrowser.getUIComponent(), BorderLayout.CENTER);
+								
+								pack();
+								setTitle(&quot;测试JCEF打开百度&quot;);
+								setSize(800, 600);
+								setVisible(true);
+								//添加一个窗口关闭监听事件
+								addWindowListener(new WindowAdapter() {
+									@Override
+									public void windowClosing(WindowEvent e) {
+										CefApp.getInstance().dispose();
+										dispose();
+									}
+								});
+							}
+						}</pre>
+						<p>
+							<img src="image/cj6.png" class="img-responsive"/>
+						</p>
+					</div>
+					<div id="jcef-java">
+						<h3>JS与JAVA代码交互</h3>
+						<p>
+							实现JS与JAVA代码交互，是做应用所必须的一步。通过JS调用JAVA代码，实现一切JAVA代码能实现的东西。可查阅 org.cef.browser.CefMessageRouter类的文档。
+						</p>
+						<p>
+							因为是异步方式，要获取java代码的处理结果，需要在回调处理结果。我不喜欢目前这种形式的调用。如果和JAVA代码交互步骤很多，JS代码会一层套一层，很不雅观。
+						</p>
+						<p>
+							JAVA代码实现
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class JsTestFrame extends JFrame{
+							
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = -9131822589633996915L;
+
+							public static void main(String[] args) {
+								String url=System.getProperty(&quot;user.dir&quot;)+&quot;/jstest.html&quot;;
+								new JsTestFrame(url);
+							}
+							
+							public JsTestFrame(String url) {
+								//是否Linux系统
+								boolean useOSR=OS.isLinux();
+								//是否透明
+								boolean isTransparent=false;
+								//添加Handler，在CEFAPP状态为终止时退出程序
+								CefApp.addAppHandler(new CefAppHandlerAdapter(null) {
+									@Override
+									public void stateHasChanged(org.cef.CefApp.CefAppState state) {
+										// Shutdown the app if the native CEF part is terminated
+										if (state == CefAppState.TERMINATED) System.exit(0);
+									}
+								});
+								
+								CefSettings settings = new CefSettings();
+								settings.windowless_rendering_enabled = useOSR;
+								//获取CefApp实例
+								CefApp cefApp=CefApp.getInstance(settings);
+								//创建客户端实例
+								CefClient cefClient = cefApp.createClient();
+								
+								//添加一个JS交互
+								jsActive(cefClient);
+								
+								//创建浏览器实例
+								CefBrowser cefBrowser = cefClient.createBrowser(url, useOSR, isTransparent);
+								
+								//将浏览器UI添加到窗口中
+								
+								getContentPane().add(cefBrowser.getUIComponent(), BorderLayout.CENTER);
+								
+								pack();
+								setTitle(&quot;测试JCEF-JS与JAVA代码交互&quot;);
+								setSize(800, 600);
+								setVisible(true);
+								//添加一个窗口关闭监听事件
+								addWindowListener(new WindowAdapter() {
+									@Override
+									public void windowClosing(WindowEvent e) {
+										CefApp.getInstance().dispose();
+										dispose();
+									}
+								});
+							}
+							
+							/**
+							 * 添加js交互
+							 * @author:liuming
+							 */
+							public void jsActive(CefClient client) {
+								 //配置一个查询路由,html页面可使用 window.java({}) 和 window.javaCancel({}) 来调用此方法
+								 CefMessageRouterConfig cmrc=new CefMessageRouterConfig(&quot;java&quot;,&quot;javaCancel&quot;);
+								 //创建查询路由
+								 CefMessageRouter cmr=CefMessageRouter.create(cmrc);
+								 cmr.addHandler(new CefMessageRouterHandler() {
+									
+									@Override
+									public void setNativeRef(String str, long val) {
+										System.out.println(str+&quot;  &quot;+val);
+									}
+									
+									@Override
+									public long getNativeRef(String str) {
+										System.out.println(str);
+										return 0;
+									}
+									
+									@Override
+									public void onQueryCanceled(CefBrowser browser, CefFrame frame, long query_id) {
+										System.out.println(&quot;取消查询:&quot;+query_id);
+									}
+									
+									@Override
+									public boolean onQuery(CefBrowser browser, CefFrame frame, long query_id, String request, boolean persistent,
+											CefQueryCallback callback) {
+										System.out.println(&quot;request:&quot;+request+&quot;\nquery_id:&quot;+query_id+&quot;\npersistent:&quot;+persistent);
+										
+										callback.success(&quot;Java后台处理了数据&quot;);
+										return true;
+									}
+								}, true);
+								client.addMessageRouter(cmr);
+							}
+						}</pre>
+						<p>
+							html实现，在工程根目录新建 jstest.html
+						</p>
+						<pre class="brush:html;toolbar:false">
+						&lt;!DOCTYPE html&gt;
+						&lt;html&gt;
+						&lt;head&gt;
+						&lt;title&gt;JCEF帮助文档&lt;/title&gt;
+						&lt;meta charset=&quot;utf-8&quot;&gt;
+						&lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;
+						&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+						&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+						&lt;/head&gt;
+						&lt;body&gt;
+						&lt;a href=&quot;javascript:testToJava()&quot;&gt;测试与java代码交互&lt;/a&gt;
+						&lt;/body&gt;
+						&lt;script&gt;
+						function testToJava(){
+						window.java({
+							request: &#39;发送给JAVA的数据&#39;,
+							persistent:false,
+							onSuccess: function(response) {
+							  alert(&quot;返回的数据:&quot;+response);
+							},
+							onFailure: function(error_code, error_message) {}
+						});
+						}
+						&lt;/script&gt;
+						&lt;!-- author:玄翼猫 --&gt;
+						&lt;/html&gt;</pre>
+						<p>
+							可参考JCEF官方的demo
+						</p>
+						<p>
+							您也可以参考 PowerOfLongedJcef 中通过反射+注解的实现方式
+						</p>
+					</div>
+					<div id="jcef-menu">
+						<h3>鼠标右键菜单</h3>
+						<p>
+							为鼠标添加自定义菜单，比较简单，实现一个Handler就行
+						</p>
+						<p>
+							Hanler实现类
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class MenuHandler extends CefContextMenuHandlerAdapter{
+							
+							private final static int MENU_ID_INJECTION=10000;
+							
+							private final static int MENU_ID_ADDTEXT=10001;
+							
+							@Override
+							public void onBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams params, CefMenuModel model) {
+								//清除菜单项
+								model.clear();
+								
+								//剪切、复制、粘贴
+								model.addItem(MenuId.MENU_ID_COPY, &quot;复制&quot;);
+								model.addItem(MenuId.MENU_ID_CUT, &quot;剪切&quot;);
+								model.addItem(MenuId.MENU_ID_PASTE, &quot;粘贴&quot;);
+								model.addSeparator();
+								
+								model.addItem(MenuId.MENU_ID_BACK, &quot;返回&quot;);
+								model.setEnabled(MenuId.MENU_ID_BACK, browser.canGoBack());
+								
+								model.addItem(MenuId.MENU_ID_FORWARD, &quot;前进&quot;);
+								model.setEnabled(MenuId.MENU_ID_FORWARD, browser.canGoForward());
+								
+								model.addItem(MenuId.MENU_ID_RELOAD, &quot;刷新&quot;);
+								
+								model.addSeparator();
+								//创建子菜单
+								CefMenuModel cmodel=model.addSubMenu(MENU_ID_INJECTION, &quot;脚本注入&quot;);
+								
+								cmodel.addItem(MENU_ID_ADDTEXT, &quot;添加一段文本&quot;);
+							}
+
+							/* 
+							 * @see org.cef.handler.CefContextMenuHandler#onContextMenuCommand(org.cef.browser.CefBrowser, org.cef.browser.CefFrame, org.cef.callback.CefContextMenuParams, int, int)
+							 */
+							@Override
+							public boolean onContextMenuCommand(CefBrowser browser, CefFrame frame, CefContextMenuParams params, int commandId, int eventFlags) {
+								switch(commandId) {
+								case MenuId.MENU_ID_RELOAD:
+									browser.reload();
+									return true;
+								case MENU_ID_ADDTEXT:
+									browser.executeJavaScript(&quot;document.body.innerHTML+=&#39;&lt;div&gt;添加一段文本&lt;/div&gt;&#39;;&quot;, browser.getURL(), 0);
+									return true;
+								}
+								return false;
+							}
+						}</pre>
+						<p>
+							测试类，在cefClient中添加此Handler：cefClient.addContextMenuHandler(new MenuHandler());
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class MouseMenuTestFrame extends JFrame{
+							
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 5944953587408136931L;
+
+							public static void main(String[] args) {
+								String url=System.getProperty(&quot;user.dir&quot;)+&quot;/jstest.html&quot;;
+								new MouseMenuTestFrame(url);
+							}
+							
+							public MouseMenuTestFrame(String url) {
+								//是否Linux系统
+								boolean useOSR=OS.isLinux();
+								//是否透明
+								boolean isTransparent=false;
+								//添加Handler，在CEFAPP状态为终止时退出程序
+								CefApp.addAppHandler(new CefAppHandlerAdapter(null) {
+									@Override
+									public void stateHasChanged(org.cef.CefApp.CefAppState state) {
+										// Shutdown the app if the native CEF part is terminated
+										if (state == CefAppState.TERMINATED) System.exit(0);
+									}
+								});
+								
+								CefSettings settings = new CefSettings();
+								settings.windowless_rendering_enabled = useOSR;
+								//获取CefApp实例
+								CefApp cefApp=CefApp.getInstance(settings);
+								//创建客户端实例
+								CefClient cefClient = cefApp.createClient();
+								//添加鼠标右键菜单handler
+								cefClient.addContextMenuHandler(new MenuHandler());
+								
+								//添加一个JS交互
+								jsActive(cefClient);
+								
+								//创建浏览器实例
+								CefBrowser cefBrowser = cefClient.createBrowser(url, useOSR, isTransparent);
+								
+								//将浏览器UI添加到窗口中
+								
+								getContentPane().add(cefBrowser.getUIComponent(), BorderLayout.CENTER);
+								
+								pack();
+								setTitle(&quot;测试JCEF-鼠标右键事件&quot;);
+								setSize(800, 600);
+								setVisible(true);
+								//添加一个窗口关闭监听事件
+								addWindowListener(new WindowAdapter() {
+									@Override
+									public void windowClosing(WindowEvent e) {
+										CefApp.getInstance().dispose();
+										dispose();
+									}
+								});
+							}
+							
+							/**
+							 * 添加js交互
+							 * @author:liuming
+							 */
+							public void jsActive(CefClient client) {
+								 //配置一个查询路由,html页面可使用 window.java({}) 和 window.javaCancel({}) 来调用此方法
+								 CefMessageRouterConfig cmrc=new CefMessageRouterConfig(&quot;java&quot;,&quot;javaCancel&quot;);
+								 //创建查询路由
+								 CefMessageRouter cmr=CefMessageRouter.create(cmrc);
+								 cmr.addHandler(new CefMessageRouterHandler() {
+									
+									@Override
+									public void setNativeRef(String str, long val) {
+										System.out.println(str+&quot;  &quot;+val);
+									}
+									
+									@Override
+									public long getNativeRef(String str) {
+										System.out.println(str);
+										return 0;
+									}
+									
+									@Override
+									public void onQueryCanceled(CefBrowser browser, CefFrame frame, long query_id) {
+										System.out.println(&quot;取消查询:&quot;+query_id);
+									}
+									
+									@Override
+									public boolean onQuery(CefBrowser browser, CefFrame frame, long query_id, String request, boolean persistent,
+											CefQueryCallback callback) {
+										System.out.println(&quot;request:&quot;+request+&quot;\nquery_id:&quot;+query_id+&quot;\npersistent:&quot;+persistent);
+										
+										callback.success(&quot;Java后台处理了数据&quot;);
+										return true;
+									}
+								}, true);
+								client.addMessageRouter(cmr);
+							}
+						}</pre>
+					</div>
+					<div id="jcef-tab">
+						<h3>tab形式展示浏览器</h3>
+						<p>
+							当我们点击target值为_blank的链接时，JCEF默认以弹出窗口的形式打开新页面，要实现tab栏形式，可参考以下步骤
+						</p>
+						<p>
+							1.创建一个实现CefLifeSpanHandlerAdapter的类，重写onBeforePopup方法：根据url创建一个CefBrowser对象，将CefBrowser的UI组件设置到JTabbedPane
+						</p>
+						<p>
+							2.设置onBeforePopup方法的返回值为true，取消弹出窗口
+						</p>
+						<p>
+							注意：因为JTabbedPane默认没有关闭按钮，需要自己使用JPanel之类的组件实现
+						</p>
+						<p>
+							设计思路：打开新窗口时，在JTabbedPane里新建一个Tab，利用CefClient创建一个CefBrowser对象，并将CefBrowser的UI添加到Tab，显示新创建的Tab
+						</p>
+						<p>
+							JTabbedPane默认没有关闭按钮，我们自定义一个JPanel来实现标题栏和关闭按钮。JPanel包含两个JLabel标题，一个显示页面标题，一个显示“X”。为“X”添加单击事件监听器，当点击“X”时，销毁Tab关联的CefBrowser对象，移除Tab
+						</p>
+						<p>
+							这里先写一个实体类，用来保存Tab关闭时要用到的数据
+						</p>
+						<p>
+							TabBrowser
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class TabBrowser {
+							/**索引，与关闭按钮关联*/
+							private int index;
+							/**浏览器对象*/
+							private CefBrowser browser;
+							/**浏览器标题*/
+							private JLabel title;
+							/**
+							 * 获取 索引，与关闭按钮关联
+							 * @return index
+							 */
+							public int getIndex() {
+								return index;
+							}
+							/**
+							 * 设置 索引，与关闭按钮关联
+							 * @param index 索引，与关闭按钮关联
+							 */
+							public void setIndex(int index) {
+								this.index = index;
+							}
+							/**
+							 * 获取浏览器对象
+							 * @return browser
+							 */
+							public CefBrowser getBrowser() {
+								return browser;
+							}
+							/**
+							 * 设置 浏览器对象
+							 * @param browser browser
+							 */
+							public void setBrowser(CefBrowser browser) {
+								this.browser = browser;
+							}
+							/**
+							 * 设置浏览器标题
+							 * @return title
+							 */
+							public JLabel getTitle() {
+								return title;
+							}
+							/**
+							 * 设置 浏览器标题
+							 * @param title 浏览器标题
+							 */
+							public void setTitle(JLabel title) {
+								this.title = title;
+							}
+							/**
+							 * @param index
+							 * @param browser
+							 * @param title
+							 */
+							public TabBrowser(int index, CefBrowser browser, JLabel title) {
+								super();
+								this.index = index;
+								this.browser = browser;
+								this.title = title;
+							}
+						}</pre>
+						<p>
+							创建一个处理标题更新的Handler
+						</p>
+						<p>
+							DisplayHandler
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class DisplayHandler extends CefDisplayHandlerAdapter {
+							
+							private TabbedPaneTestFrame frame;
+							
+							
+							public DisplayHandler(TabbedPaneTestFrame frame) {
+								this.frame=frame;
+							}
+							
+							/* (non-Javadoc)
+							 * @see org.cef.handler.CefDisplayHandlerAdapter#onTitleChange(org.cef.browser.CefBrowser, java.lang.String)
+							 */
+							@Override
+							public void onTitleChange(CefBrowser browser, String title) {
+								this.frame.updateTabTitle(browser, title);
+						//		super.onTitleChange(arg0, arg1);
+							}
+							
+							
+						}</pre>
+						<p>
+							创建一个处理弹出窗口的Handler
+						</p>
+						<p>
+							LifeSpanHandler
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class LifeSpanHandler extends CefLifeSpanHandlerAdapter {
+							
+							private TabbedPaneTestFrame frame;
+							
+							public LifeSpanHandler(TabbedPaneTestFrame frame) {
+								this.frame=frame;
+							}
+							
+							/* (non-Javadoc)
+							 * @see org.cef.handler.CefLifeSpanHandlerAdapter#onBeforePopup(org.cef.browser.CefBrowser, org.cef.browser.CefFrame, java.lang.String, java.lang.String)
+							 */
+							@Override
+							public boolean onBeforePopup(CefBrowser browser, CefFrame frame, String target_url, String target_frame_name) {
+								this.frame.createBrowser(target_url);
+								//返回true表示取消弹出窗口
+								return true;
+							}
+						}</pre>
+						<p>
+							创建一个点击关闭按钮的监听器
+						</p>
+						<p>
+							TabCloseListener
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class TabCloseListener implements MouseListener{
+							
+							private int index;
+							
+							private TabbedPaneTestFrame frame;
+							
+							
+							public TabCloseListener(int index,TabbedPaneTestFrame frame) {
+								this.index=index;
+								this.frame=frame;
+							}
+							
+							/* (non-Javadoc)
+							 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+							 */
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								// TODO Auto-generated method stub
+								System.out.println(&quot;点击了关闭事件...&quot;);
+								
+								frame.removeTab(null, index);
+							}
+
+							/* (non-Javadoc)
+							 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+							 */
+							@Override
+							public void mousePressed(MouseEvent e) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							/* (non-Javadoc)
+							 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+							 */
+							@Override
+							public void mouseReleased(MouseEvent e) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							/* (non-Javadoc)
+							 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+							 */
+							@Override
+							public void mouseEntered(MouseEvent e) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							/* (non-Javadoc)
+							 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+							 */
+							@Override
+							public void mouseExited(MouseEvent e) {
+								// TODO Auto-generated method stub
+								
+							}
+
+						}</pre>
+						<p>
+							主类代码
+						</p>
+						<p>
+							TabbedPaneTestFrame
+						</p>
+						<pre class="brush:java;toolbar:false">
+						public class TabbedPaneTestFrame extends JFrame{
+							
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 871314861019393323L;
+
+							private static CefApp cefApp;
+							
+							private static CefClient cefClient;
+							
+							private boolean useOSR;
+							
+							private boolean isTransparent;
+							/**tabbedPane对象*/
+							private static JTabbedPane tabbedPane;
+							/**TabBrowser对象列表**/
+							private List&lt;TabBrowser&gt; tbList=new Vector&lt;TabBrowser&gt;();
+							/**tab使用的索引。此索引不是tab在tabbedpane中的索引，此索引用来移除tab栏**/
+							private int tbIndex=0; 
+							/**默认的标题名*/
+							private final static String TITLE_INFO=&quot;正在载入...&quot;;
+							
+							public TabbedPaneTestFrame(String url) {
+								//是否Linux系统
+								useOSR=OS.isLinux();
+								//是否透明
+								isTransparent=false;
+								//添加Handler，在CEFAPP状态为终止时退出程序
+								CefApp.addAppHandler(new CefAppHandlerAdapter(null) {
+									@Override
+									public void stateHasChanged(org.cef.CefApp.CefAppState state) {
+										// Shutdown the app if the native CEF part is terminated
+										if (state == CefAppState.TERMINATED) System.exit(0);
+									}
+								});
+								
+								CefSettings settings = new CefSettings();
+								settings.windowless_rendering_enabled = useOSR;
+								//获取CefApp实例
+								cefApp=CefApp.getInstance(settings);
+								//创建客户端实例
+								cefClient = cefApp.createClient();
+								//添加鼠标右键菜单handler
+								cefClient.addContextMenuHandler(new MenuHandler());
+								//添加浏览器标题更改handler
+								cefClient.addDisplayHandler(new DisplayHandler(this));
+								//添加浏览器窗口弹出handler
+								cefClient.addLifeSpanHandler(new LifeSpanHandler(this));
+								
+								tabbedPane=new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
+								
+								getContentPane().add(tabbedPane, BorderLayout.CENTER);
+								pack();
+								setTitle(&quot;测试JCEF-Tab栏&quot;);
+								setSize(800, 600);
+								setVisible(true);
+								//添加一个窗口关闭监听事件
+								addWindowListener(new WindowAdapter() {
+									@Override
+									public void windowClosing(WindowEvent e) {
+										closeAllBrowser();
+										CefApp.getInstance().dispose();
+										dispose();
+									}
+								});
+								createBrowser(&quot;http://www.baidu.com&quot;);
+							}
+							
+							/**
+							 * 关闭所有浏览器
+							 * @author:liuming
+							 */
+							public void closeAllBrowser() {
+								for(int i=tbList.size()-1;i&gt;=0;i--) {
+									TabBrowser tb=tbList.get(i);
+									tb.getBrowser().close(true);
+									tabbedPane.removeTabAt(i);
+									System.out.println(&quot;移除索引为&quot;+i+&quot;的tab...&quot;);
+								}
+							}
+							
+							/**
+							 * 根据url创建一个新的tab页
+							 * @author:liuming
+							 * @param url
+							 * @return 最后一个tab的索引
+							 */
+							public int createBrowser(String url) {
+								CefBrowser browser = cefClient.createBrowser(url, useOSR, isTransparent);
+								tabbedPane.addTab(&quot;.&quot;, browser.getUIComponent());
+								int lastIndex=tabbedPane.getTabCount()-1;
+								tbIndex++;
+								
+								//创建自定义tab栏
+								JPanel jp=new JPanel();
+								
+								JLabel ltitle=new JLabel(TITLE_INFO);
+								JLabel lclose=new JLabel(&quot;X&quot;);
+								jp.setOpaque(false);
+								ltitle.setHorizontalAlignment(JLabel.LEFT);
+								lclose.setHorizontalAlignment(JLabel.RIGHT);
+								jp.add(ltitle);
+								jp.add(lclose);
+								//添加关闭按钮监听事件
+								lclose.addMouseListener(new TabCloseListener(tbIndex,this));
+								//设置tab栏标题的关键句
+								tabbedPane.setTabComponentAt(lastIndex, jp);
+								
+								TabBrowser tb=new TabBrowser(tbIndex, browser, ltitle);
+								tbList.add(tb);
+								
+								tabbedPane.setSelectedIndex(lastIndex);
+								return lastIndex;
+							}
+							
+							/**
+							 * 修改标题
+							 * @author:liuming
+							 * @param browser
+							 * @param title
+							 */
+							public void updateTabTitle(CefBrowser browser,String title) {
+								if(title!=null &amp;&amp; !&quot;&quot;.equals(title)) {
+									if(title.length()&gt;12) title=title.substring(0, 12)+&quot;...&quot;;
+									for(TabBrowser tb:tbList) {
+										if(tb.getBrowser()==browser) {
+											tb.getTitle().setText(title);
+											break;
+										}
+									}
+								}
+							}
+							/**
+							 * 移除tab
+							 * @author:liuming
+							 * @param browser
+							 * @param index
+							 */
+							public void removeTab(CefBrowser browser,int index) {
+								if(browser!=null) {
+									for(int i=0;i&lt;tbList.size();i++) {
+										TabBrowser tb=tbList.get(i);
+										if(tb.getBrowser()==browser) {
+											tb.getBrowser().close(true);
+											tabbedPane.removeTabAt(i);
+											tbList.remove(i);
+						//					System.out.println(&quot;移除索引为&quot;+i+&quot;的tab&quot;);
+											break;
+										}
+									}
+									
+								}else {
+									
+									for(int i=0;i&lt;tbList.size();i++) {
+										TabBrowser tb=tbList.get(i);
+										if(tb.getIndex()==index) {
+											tb.getBrowser().close(true);
+											tabbedPane.removeTabAt(i);
+											tbList.remove(i);
+						//					System.out.println(&quot;移除索引为&quot;+i+&quot;的tab&quot;);
+											break;
+										}
+									}
+								}
+							}
+							
+							
+							public static void main(String[] args) {
+								new TabbedPaneTestFrame(&quot;http://www.baidu.com&quot;);
+							}
+						}</pre>
+						<p>
+							<br/>
+						</p>
+					</div>
+					<div id="jcef-doc">
+						<h3>开发文档阅读指南</h3>
+						<p>
+							JCEF主要有这些类：CefApp、CefClient、CefBrowser、CefFrame、handler、callback。可根据需要查阅文档。
+						</p>
+						<p>
+							<strong>CefApp</strong>
+						</p>
+						<p>
+							CEF程序的全局管理类
+						</p>
+						<p>
+							<strong>CefClient</strong>
+						</p>
+						<p>
+							CEF客户端程序类
+						</p>
+						<p>
+							<strong>CefBrowser</strong>
+						</p>
+						<p>
+							浏览器对象类，一个客户端会有多个浏览器
+						</p>
+						<p>
+							<strong>CefFrame</strong>
+						</p>
+						<p>
+							框架对象，一个浏览器可能会包含多个Frame
+						</p>
+						<p>
+							<strong>handler</strong>
+						</p>
+						<p>
+							使用比较频繁的类，类似于监听器。比如说自定义右键菜单。Adapter相关类是handler的实现类
+						</p>
+						<p>
+							<strong>callback</strong>
+						</p>
+						<p>
+							回调接口
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<strong>misc</strong>包下是实体类。<strong>network</strong>是网络相关的类，例如Cookie管理
+						</p>
+					</div>
+					<div id="jcef-js">
+						<h3>脚本注入技巧</h3>
+						<p>
+							注：仅适用于谷歌浏览器
+						</p>
+						<p>
+							1.获取页面鼠标单击事件调用的js。以下使用我自己的项目做示例，查找&quot;编辑&quot;按钮对应的JS
+						</p>
+						<p>
+							F12进入开发者工具，选择sources
+						</p>
+						<p>
+							<img src="image/js1.png" class="img-responsive"/>
+						</p>
+						<p>
+							展开 Event Listener Breakpoints，选中Mouse下的click，单击页面元素
+						</p>
+						<p>
+							<img src="image/js2.png" class="img-responsive"/>
+						</p>
+						<p>
+							按F11往下追踪，直到找到自己需要的js
+						</p>
+						<p>
+							<img src="image/js3.png" class="img-responsive"/>
+						</p>
+						<p>
+							<img src="image/js4.png" class="img-responsive"/>
+						</p>
+						<p>
+							找到js后，可以将js代码复制出来，封装成一个函数，再以脚本注入的方式注入到页面，调用该函数
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							2.调用指定元素的单击事件
+						</p>
+						<p>
+							在开发者工具下，用箭头找到指定元素，分析元素的id，class之类的信息，调用单击事件
+						</p>
+						<p>
+							示例：document.getElementById(&quot;xx&quot;).click();
+						</p>
+						<p>
+							建议：尽量使用原生js的方式调用
+						</p>
+					</div>
+				</div>
+				
+				<div class="bs-docs-section">
+					<div id="pol">
+						<h2>PowerOfLongedJcef文档</h2>
+						<p>
+							PowerOfLongedJCEF是一个不成熟的JCEF开源项目，在一些方面我自认为不够方便，不过现在已经可以满足我的大部分要求。我也不知道会不会继续维护它，如果有空闲时间的话——可能会吧。
+						</p>
+						<p>
+							如果你想使用JCEF开发自己的应用，你可以参考JCEF的帮助文档和JcefTest项目，你也可以参考PowerOfLongedJCEF或者直接使用PowerOfLongedJCEF，在某些方面，PowerOfLongedJCEF还是让人比较满意的。
+						</p>
+						<p>
+							JAVA桌面应用项目有个通病，需要先装一个JDK（有些应用对于JDK有位数和版本要求），再加上自身丑陋的界面，以至于很少能看到JAVA桌面项目。
+						</p>
+						<p>
+							POLJ继承了这些特性，它还有一个特性——庞大，一百多M。有一百多M来自于Jcef二进制文件，它的实际代码量可能就几百K。
+						</p>
+					</div>
+					<div id="pol-st">
+						<h3>开始</h3>
+						<p>
+							使用git或者svn以“普通JAVA项目”模式将PowerOfLongedJCEF导入eclipse。参照 工程导入说明.txt 引入相关的包
+						</p>
+						<p>
+							找到com.xuanyimao.polj下的StartupApp ，Run as &gt; Java Application ,启动项目。如图。
+						</p>
+						<p>
+							<img src="image/polj1.png" class="img-responsive"/>
+						</p>
+					</div>
+					<div id="pol-bz">
+						<h3>项目相关帮助</h3>
+						<p>
+							<strong>项目目录介绍：</strong>
+						</p>
+						<p>
+							src：JAVA代码目录
+						</p>
+						<p>
+							app：HTML文件存放目录，可以理解为应用目录。各个应用的HTML部分应以单个目录的形式存放在这里。
+						</p>
+						<p>
+							bin：class文件目录
+						</p>
+						<p>
+							binary_win64：JCEF二进制文件目录
+						</p>
+						<p>
+							data：数据储存目录，以应用ID生成相应的目录。data数据以json格式数据储存，方便修改
+						</p>
+						<p>
+							lib：JAR包目录
+						</p>
+						<p>
+							scp：脚本文件目录，对应首页的脚本管理
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<strong>项目启动流程：</strong>
+						</p>
+						<p>
+							1、读取项目根目录下的config文件，获取应用列表（如果不存在会自动创建）。
+						</p>
+						<p>
+							2、根据应用列表动态加载需要用到的Jar文件。应用启动时会自动引入一些jar文件，这里的是单个应用需要用到的Jar。
+						</p>
+						<p>
+							3、根据配置扫描包，加载相应的JS接口
+						</p>
+						<p>
+							4、启动主窗口程序
+						</p>
+						<p>
+							应用可以理解为模块——一个独立的功能，每个应用都有自己的ID，不同的应用ID不能相同。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<strong>创建一个JS与JAVA交互的接口</strong>
+						</p>
+						<p>
+							在com.xuanyimao.polj下面创建一个自己的包，比如：com.xuanyimao.polj.test，在下面继续创建一个jsimpl包：com.xuanyimao.polj.test.jsimpl。
+						</p>
+						<p>
+							新建一个普通JAVA类，加上注解 @JsClass ，创建一个方法，加上注解：@JsFunction(name=&quot;test1&quot;)。里面随便写一些代码。可参考各jsimpl包下的代码。
+						</p>
+						<p>
+							前台HTML页面引入 app\static\js\common.js，执行以下代码&nbsp; execJava(&quot;test1&quot;,null,function(data){}); ，建议直接在index.html做测试。
+						</p>
+						<p>
+							common.js中的execJava函数弹层使用的是easyui，如果想换成其他ui，请参照该代码进行改写。
+						</p>
+						<p>
+							从StartupApp中可以看出，程序在启动时扫描了指定目录下的jsimpl包，如果你的应用想要用其他的包名，请在这里指定，或在打包成应用包的时候指定扫描的包名。
+						</p>
+						<p>
+							有时候你可能需要传List对象，很抱歉，不支持。不过你把它再次包成一个大对象就支持了。参考com.xuanyimao.polj.index.jsimpl.IndexJs的createInstallPkg方法
+						</p>
+						<p>
+							注解说明：
+						</p>
+						<p>
+							<strong>@JsClass</strong>&nbsp; 表示这个类是个JS接口类
+						</p>
+						<p>
+							<strong>@JsFunction</strong>&nbsp; 标明前台该如何调用这个JAVA方法，name属性是JS调用时使用的名称
+						</p>
+						<p>
+							<strong>@JsObject</strong>&nbsp; &nbsp;可用此注解动态注入@JsClass的类对象，不建议使用，建议用：AnnotationScanner.getJsClassInstance(JsClass名)
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<strong>代码相关说明：</strong>
+						</p>
+						<p>
+							因为PowerOfLongedJCEF的作者拥有良好的编码规范，几乎所有方法都有注释，所以，你可以尽情的研究源码。PowerOfLongedJCEF的核心代码都在com.xuanyimao.polj.index 下。
+						</p>
+						<p>
+							不要纳闷我为什么没有new MainFrame()，窗口却启动了。注解扫描器扫描时会自动实例化一个对象到内存中。它会被打开的原因就是因为注解扫描器扫描了它，而它有JsClass这个注解。
+						</p>
+						<p>
+							<strong>com.xuanyimao.polj.StartupApp</strong>&nbsp;
+						</p>
+						<p>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目启动类，加载配置，扫描JS接口，启动窗口
+						</p>
+						<p>
+							<strong>com.xuanyimao.polj.index.MainFrame</strong>&nbsp;&nbsp;
+						</p>
+						<p>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主窗口类，从这里初始化CefManager数据
+						</p>
+						<p>
+							<strong>com.xuanyimao.polj.index.CefManager</strong>&nbsp;
+						</p>
+						<p>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JCEF对象管理类，和浏览器相关的事件都在里面，JS事件注册也在这里
+						</p>
+						<p>
+							<strong>com.xuanyimao.polj.index.scanner.AnnotationScanner</strong>&nbsp; &nbsp;
+						</p>
+						<p>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注解扫描器主类，扫描注解，执行JS和Java代码交互
+						</p>
+						<p>
+							<strong>com.xuanyimao.polj.index.bean.HandlerObject</strong>&nbsp; &nbsp;
+						</p>
+						<p>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是JS和Java方法交互中的一个特殊对象，它包含了完整的原始交互信息。如果你在你方法的参数中使用了它，它会被自动注入。示例：<strong>com.xuanyimao.polj.index.jsimpl.CommonFunction</strong>中的<strong>fileDialog</strong>
+						</p>
+						<p>
+							<strong>com.xuanyimao.polj.index.util.ZipUtil</strong>&nbsp;
+						</p>
+						<p>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文件压缩工具类
+						</p>
+						<p>
+							<strong>com.xuanyimao.polj.index.util.ToolUtil</strong>&nbsp;&nbsp;
+						</p>
+						<p>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;乱七八糟的工具类
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<strong>脚本管理使用说明：</strong>
+						</p>
+						<p>
+							这里的脚本是指JS脚本。首先，将你的脚本放在scp目录下，在首页右键，选择“刷新”，这时，你新添加的脚本就会出现在脚本列表。
+						</p>
+						<p>
+							点击“编辑”，或在表格上双击，给脚本取个名字。点击“保存”。再次右键，在右键菜单“脚本注入”的子菜单便可看到你刚刚编辑的脚本。只有名称不为空的脚本才会出现在右键菜单上。
+						</p>
+						<p>
+							点击右键菜单上的脚本名，便会在当前页面执行该脚本。如果修改了脚本不想重启软件，请点击“重载脚本”以使新脚本生效。
+						</p>
+						<p>
+							脚本分为两种注入模式，0是默认的手动注入——以右键菜单方式启动。1是自动注入，自动注入是打开指定网页后自动执行此脚本，需要配置链接的正则表达式，当网页URL与配置的链接能匹配上时，自动注入脚本。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<strong>应用管理说明：</strong>
+						</p>
+						<p>
+							目前来说，这是一个鸡肋的功能。看源码可以知道，它仅仅是将指定的文件和配置文件生成一个zip压缩包——应用安装包，安装时也只是根据配置文件把这些文件复制到指定目录。对于那些不需要和JAVA做交互的应用来说还勉强，一旦和JAVA有交互，基本上嗝屁。将就着用吧。
+						</p>
+						<p>
+							添加应用：可以删掉项目下的config文件，在 DevRepertory.createDefaultAppConfig() 里面加代码，简单方便。
+						</p>
+						<p>
+							题外话：JAVA有很多第三方库高版本不支持低版本，很容易造成版本冲突之类。所以，想做任意插拔的应用不现实。
+						</p>
+						<p>
+							<br/>
+						</p>
+						<p>
+							<strong>二次开发规范</strong>
+						</p>
+						<p>
+							如果你想使用PowerOfLongedJCEF直接开发，我建议遵循以下规则：
+						</p>
+						<p>
+							尽量不修改 com.xuanyimao.polj 下的代码，自立门户，创建自己的包。在StratupApp中添加自己的包的扫描路径。这样是为了防止我万一吃饱了没事干去更新一个比较好的新版本，你手足无措。
+						</p>
+						<p>
+							src下的包名和app下的包名与你的应用ID保持一致，这样方便你自己开发
+						</p>
+						<p>
+							JS交互接口的名字以 应用ID.方法名 的形式，以免和我的产生冲突。
+						</p>
+						<p>
+							总之，你按规定，我随意。
+						</p>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+	</div>
+	<footer style="background-color:#ccc;padding-top:10px;">
+		<div class="container">
+			<p>本文档由玄翼猫编写，个人网站：<a href="http://www.xuanyimao.com" target="_blank">http://www.xuanyimao.com</a></p>
+		</div>
+	</footer>
+</body>
+<!-- author:玄翼猫 -->
+</html>

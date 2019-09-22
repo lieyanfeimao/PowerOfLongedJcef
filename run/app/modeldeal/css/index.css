@@ -1,0 +1,47 @@
+﻿body {
+		background-color:#EEEEEF;
+	}
+	::-webkit-scrollbar
+	{
+		width: 6px;
+		height: 6px;
+	}
+	::-webkit-scrollbar-track-piece
+	{
+		background-color: #CCCCCC;
+		-webkit-border-radius: 6px;
+	}
+	::-webkit-scrollbar-thumb:vertical
+	{
+		height: 5px;
+		background-color: #999999;
+		-webkit-border-radius: 6px;
+	}
+	::-webkit-scrollbar-thumb:horizontal
+	{
+		width: 5px;
+		background-color: #CCCCCC;
+		-webkit-border-radius: 6px;
+	}
+	.openfolder{
+		width:16px;
+		height:16px;
+		float:right;
+		border:0;
+		cursor:pointer;
+	}
+	.opbtn {
+		width:16px;
+		height:16px;
+		border:0;
+		cursor:pointer;
+	}
+	
+	#editModel table tr td {
+		padding-bottom:5px;
+	}
+	.tdpre{
+		width:25%;
+		font-weight:bold;
+		text-align:right;
+	}

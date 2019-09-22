@@ -1,0 +1,1 @@
+[{"id":"modelDeal","name":"代码模板生成器","version":"V1.0","versionNum":1,"icon":"","type":"html","path":"{appPath}/index.html","libjar":"{appPath}/lib/modeldeal.jar"},{"id":"helpdoc","name":"JCEF开发文档","version":"V1.0","versionNum":1,"icon":"","type":"html","path":"{appPath}/index.html"}]

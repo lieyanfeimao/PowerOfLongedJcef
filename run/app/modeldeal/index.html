@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>代码模板生成器</title>
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/default/easyui.css">
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+<div id="initView" style="width:100%;height:100%;position:absolute;left: 0px;top: 0px;z-index:100;background-color:#FFFFFF;text-align:center;">
+	<div style="position:relative;top:40%;"><img src="image/loading.gif" width="50" height="50"/></div>
+</div>
+<div class="mainView">
+	<table cellpadding="0" cellspacing="0" style="width:100%">
+		<tr>
+			<td>
+				<select id="model" name="model" style="width:150px;"></select>
+				<a href="#" class="easyui-menubutton" menu="#modelop" iconCls="icon-edit">模板操作</a>
+			</td>
+			<td style="text-align:right;">
+				<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="createNewModel();">新建模板</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="saveModel();">保存模板</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-tip" onclick="createObjFile();">生成目标文件</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-help" onclick="help();">帮助</a>
+			</td>
+		</tr>
+	</table>
+	
+	<div style="width:100%;height:5px;"></div>
+	<table id="modelFileList"></table>
+	
+	<div style="width:100%;height:5px;"></div>
+	<table id="wordList"></table>
+	
+	<div id="modeltb">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-folder" plain="true" onclick="javascript:addModelFile();">添加模板文件</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-delete" plain="true" onclick="javascript:deleteModelFile();">删除数据</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:saveAllModelFile();">保存全部</a>
+	</div>
+	
+	<div id="wordtb">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:createWordRow()">添加</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="javascript:deleteWord()">删除</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:saveAllWord()">保存全部</a>
+	</div>
+	<!-- 模板操作菜单 -->
+	<div id="modelop" style="width:100px;">
+		<div iconCls="icon-edit" onclick="updateModelName();">模板重命名</div>
+		<div iconCls="icon-copy" onclick="copyModel()">复制模板</div>
+		<div iconCls="icon-cancel" onclick="deleteModel()">删除模板</div>
+	</div>
+	
+	<!-- 新建模板 -->
+	<div id="newModel" style="display:none;padding:10px;">
+		<span id="namedesc">请输入模板名：</span><input type="text" id="modelName" name="modelName"/>
+	</div>
+	<!-- 编辑模板文件 -->
+	<div id="editModel" style="display:none;padding:10px;">
+		<input type="hidden" name="modelFileId" id="modelFileId"/>
+		<table>
+			<tr>
+				<td class="tdpre">模板文件名:</td>
+				<td><span id="sourcePathName"></span></td>
+			</tr>
+			<tr>
+				<td class="tdpre">模板文件路径:</td>
+				<td><span id="sourcePath"></span><div class="icon-folder openfolder" onclick="changeModelFileByEdit()"></div></td>
+			</tr>
+			<tr>
+				<td class="tdpre">目标文件路径:</td>
+				<td><input class="easyui-validatebox" type="text" name="objPath" id="objPath"  onchange="changeObjAbsPath();"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">目标文件真实路径:</td>
+				<td><span id="objAbsPath"></span><div class="icon-folder openfolder" onclick="openExplorerByEdit();"></div></td>
+			</tr>
+			<tr>
+				<td class="tdpre">模板文件编码:</td>
+				<td><input class="easyui-validatebox" type="text" name="sourceCode" id="sourceCode"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">目标文件编码:</td>
+				<td><input class="easyui-validatebox" type="text" name="objCode" id="objCode" /></td>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- 编辑关键词 -->
+	<div id="editWord" style="display:none;padding:10px;">
+		<input type="hidden" name="wordId" id="wordId"/>
+		<table>
+			<tr>
+				<td class="tdpre">特殊词:</td>
+				<td><input class="easyui-validatebox" type="text" name="word" id="word"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">替换文本:</td>
+				<td><input class="easyui-validatebox" type="text" name="content" id="content"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">备注:</td>
+				<td><input class="easyui-validatebox" type="text" name="desc" id="desc"/></td>
+			</tr>
+		</table>
+	</div>
+	<!-- 选择的文件 -->
+	<div id="selectFile" style="display:none;padding:10px;">
+		<div style="color:#FF0000;">选中的目标文件将被生成</div>
+		<table id="selectFileList"></table>
+	</div>
+	
+	<div id="helpDoc" style="display:none;padding:10px;">
+	
+	</div>
+</div>
+</body>
+</html>
+<script src="../static/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
+<script src="../static/js/common.js"></script>
+<script src="js/md.js"></script>
+<script>
+	//模板管理对象
+	var modelDeal=new Array();
+	//询问提示框的标题
+	var askInfoTitle="一位不愿意透露姓名的网友问你：";
+	//提示框的标题
+	var infoTitle="一位路过的群众提示";
+	//appId，用于数据存储
+	var appId="modelDeal";
+	//选择的模板索引
+	var selectModelIndex=0;
+	//是否开启批量处理模式，批量处理模式下，统一处理后再保存数据(saveData)。保存全部、保存模板、更新特殊词配置
+	var batchModel=false;
+	//是否为初始化状态
+	var initStatus=false;
+	//数据格式
+	/**
+	modelDeal=[
+		{
+			folderPath:'xxxxxx',//文件对话框上次停留的目录
+			name:'模板名', //模板名
+			fileId:1, //modelFiles数据ID
+			wordId:1, //specialWords数据ID
+			modelFiles:[//模板文件对象数组
+				{
+					id:1,   //ID
+					sourcePathName:'', //源文件名称
+					sourcePath:'', //源文件路径
+					objPath:'', //目标文件路径
+					objAbsPath:'',//目标文件绝对路径
+					sourceCode:'', //源文件编码,默认:UTF-8
+					objCode:'', //目标文件编码,默认:UTF-8
+					edit:false  //是否处于编辑状态
+				}
+			],
+			specialWords:[//特殊词对象数组
+				{
+					id:1,  //ID
+					word:'',//特殊词
+					content:'',//替换的内容
+					desc:'',//备注
+					edit:false  //是否处于编辑状态
+				}
+			]
+		},...
+	];
+	**/
+	
+	
+	
+	$(document).ready(function(){
+		readData(function(){
+			//初始化下拉框
+			var ops=[{text:'请选择模板',id:'-1',selected:true}];
+			for(var i=0;i<modelDeal.length;i++){
+				ops[ops.length]={id:i,text:modelDeal[i].name};
+			}
+			$("#model").combobox({
+				valueField:'id',
+				textField:'text', 
+				panelHeight:'auto',
+				data:ops,
+				onChange:function(){
+					selectModelIndex=$('#model').combobox('getValue');
+					loadModelData();
+				}
+			});
+		});
+		
+		
+		$('#modelFileList').datagrid({
+			columns:[
+				[
+					{field:'id',checkbox:true},
+					{field:'sourcePath',title:'模板文件名',width:200
+						,formatter:function(value,rowData,rowIndex){
+							return '<span title="'+value+'">'+rowData.sourcePathName+'</span><div class="icon-folder openfolder" onclick="changeModelFile('+rowIndex+')"></div>';
+						}
+					},
+					{field:'objPath',title:'目标文件目录',width:200,editor:'text'},
+					{field:'objAbsPath',title:'目标文件真实路径',width:200
+						,formatter:function(value,rowData,rowIndex){
+							return '<span title="'+value+'">'+value+'</span><div class="icon-folder openfolder" onclick="openExplorer(\''+(value?value.replace(/\\/g,'\\\\'):'')+'\')"></div>';
+						}
+					},
+					{field:'sourceCode',title:'模板编码',width:80,align:'center',editor:'text'},
+					{field:'objCode',title:'目标编码',width:80,align:'center',editor:'text'},
+					{field:'op',title:'操作',width:100,align:'center'
+						,formatter:function(value,rowData,rowIndex){
+						//infoMsg(JSON.stringify(rowData));
+							if (rowData["edit"]){
+								var s = '<img src="image/save.png" class="opbtn" onclick="saveModelFileRow(this)" title="保存"/>&nbsp;&nbsp;';
+								s+='<img src="image/cancel.png" class="opbtn" onclick="cancelModelFileRow(this)" title="取消"/>';
+								return s;
+							} else {
+								var s = '<img src="image/edit.png" class="opbtn" onclick="editModelFileRow(this)" title="编辑"/>&nbsp;&nbsp;';
+								s+='<img src="image/delete.png" class="opbtn" onclick="deleteModelFileRow(this)" title="删除"/>';
+								return s;
+							}
+						}
+					}
+				]
+			]
+			,toolbar:'#modeltb'
+			,title:'模板文件配置'
+			,width:'100%'
+			,height:'250px'
+			,resizeHandle:'right'
+			,data:[
+			]
+			,onDblClickCell: function(index,field,value){
+				$(this).datagrid('beginEdit', index);
+				var ed = $(this).datagrid('getEditor', { index: index, field: field });
+				if(ed != null) $(ed.target).focus();
+				//console.log(index);
+			}
+			,onBeforeEdit:function(index,rowData){
+				rowData["edit"] = true;
+				updateActions(this,index,rowData);
+			}
+			,onAfterEdit:function(index,rowData,changes){
+				rowData["edit"] = false;
+				//获取真实文件路径
+				rowData.objAbsPath=getAbsObjPath(rowData.objPath+"\\"+rowData.sourcePathName);
+				//保存数据
+				if(!batchModel) saveData();
+				updateActions(this,index,rowData);
+			}
+			,onCancelEdit:function(index,rowData){
+				rowData["edit"] = false;
+				updateActions(this,index,rowData);
+			}
+		});
+		
+		$('#wordList').datagrid({
+			columns:[
+				[
+					{field:'id',checkbox:true},
+					{field:'word',title:'特殊词',width:200,editor:'text'},
+					{field:'content',title:'替换文本',width:200,editor:'text'},
+					{field:'desc',title:'备注',width:200,editor:'text'},
+					{field:'op',title:'操作',width:100,align:'center'
+						,formatter:function(value,rowData,rowIndex){
+							if (rowData["edit"]){
+								var s = '<img src="image/save.png" class="opbtn" onclick="saveWordRow(this)" title="保存"/>&nbsp;&nbsp;';
+								s+='<img src="image/cancel.png" class="opbtn" onclick="cancelWordRow(this)" title="取消"/>';
+								return s;
+							} else {
+								var s = '<img src="image/edit.png" class="opbtn" onclick="editWordRow(this)" title="编辑"/>&nbsp;&nbsp;';
+								s+='<img src="image/delete.png" class="opbtn" onclick="deleteWordRow(this)" title="删除"/>';
+								return s;
+							}
+						}
+					}
+				]
+			]
+			,toolbar:'#wordtb'
+			,title:'关键词配置'
+			,width:'100%'
+			,height:'250px'
+			,resizeHandle:'right'
+			,data:[
+				//{word:'{entity}.java',content:'D:\\aa\\djdksjsks\\ksdaaad\\sa',desc:'D:\\aa\\djdksjsks\\ksdaaad\\sa'}
+			]
+			,onDblClickCell: function(index,field,value){
+				$(this).datagrid('beginEdit', index);
+				var ed = $(this).datagrid('getEditor', { index: index, field: field });
+				if(ed != null) $(ed.target).focus();
+			}
+			,onBeforeEdit:function(index,rowData){
+				rowData["edit"] = true;
+				updateActions(this,index,rowData);
+			}
+			,onAfterEdit:function(index,rowData){
+				rowData["edit"] = false;
+				//更新所有目标文件真实路径
+				if(!batchModel) {
+					batchModel=true;
+					updateAllAbsObjPath();
+					batchModel=false;
+					saveData();
+				}
+				updateActions(this,index,rowData);
+			}
+			,onCancelEdit:function(index,rowData){
+				rowData["edit"] = false;
+				updateActions(this,index,rowData);
+			}
+		});
+		
+		$("#selectFileList").datagrid({
+			columns:[
+				[
+					{field:'id',checkbox:true},
+					{field:'sourcePath',title:'模板文件名',width:200
+						,formatter:function(value,rowData,rowIndex){
+							return '<span title="'+value+'">'+rowData.sourcePathName+'</span>';
+						}
+					},
+					{field:'objAbsPath',title:'生成的文件',width:200
+						,formatter:function(value,rowData,rowIndex){
+							return '<span title="'+value+'">'+value+'</span>';
+						}
+					}
+				]
+			]
+			,width:'100%'
+			,height:'250px'
+			,resizeHandle:'right'
+		});
+	});
+	
+	//页面渲染完成后调用
+	$.parser.onComplete = function () {
+		if(!initStatus){
+			$("#initView").hide(1000);
+			initStatus=true;
+		}
+	}
+</script>

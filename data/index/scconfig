@@ -1,0 +1,1 @@
+[{"id":0,"name":"自动注入-测试","file":"test.js","url":"^(https|http)://(www\\.|)baidu.com.*?","type":"1"},{"id":1,"name":"手动注入-测试","file":"test1.js","url":"","type":"0"}]

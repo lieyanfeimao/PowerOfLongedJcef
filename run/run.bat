@@ -1,0 +1,1 @@
+java -cp "./libs;./libs/*;./app/modeldeal/lib" -Djava.library.path=./libs/jcef com.xuanyimao.polj.StartupApp

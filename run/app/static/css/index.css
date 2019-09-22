@@ -1,0 +1,81 @@
+.imglist { 
+	font:12px verdana, arial, sans-serif; /* 设置文字大小和字体样式 */
+}
+.imglist, .imglist li {
+	list-style:none; /* 将默认的列表符号去掉 */
+	padding:0; /* 将默认的内边距去掉 */
+	margin:0; /* 将默认的外边距去掉 */
+}
+.imglist li { 
+	margin-top:5px;
+	margin-left:40px; /* 设置内边距 */
+	float:left; /* 往左浮动 */
+	width:100px;
+	height:65px;
+	white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+	word-break:keep-all;/* 不换行 */
+	white-space:nowrap;/* 不换行 */
+	background-color:#FFFFFF;
+	text-align:center;
+}
+.imglist li img{
+	width:35px;height:35px;
+}
+.imglist li:hover{
+	background-color:#F4F4F4;cursor:pointer;
+	
+}
+.imglist li .img-select{
+	border:1px solid #FF0000 !important;
+}
+
+.imglist li .txt{
+	width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;padding-left:5px;text-align:center;
+}
+.imglist li .btns{
+	width:100%;white-space:nowrap;
+}
+.tdpre{
+	width:25%;
+	font-weight:bold;
+	text-align:right;
+}
+.openfolder{
+	width:16px;
+	height:16px;
+	float:right;
+	border:0;
+	cursor:pointer;
+}
+
+.navlist { 
+	font:12px verdana, arial, sans-serif; /* 设置文字大小和字体样式 */
+}
+.navlist, .navlist li {
+	list-style:none; /* 将默认的列表符号去掉 */
+	padding:0; /* 将默认的内边距去掉 */
+	margin:0; /* 将默认的外边距去掉 */
+}
+.navlist li { 
+	margin-top:5px;
+	margin-left:30px; /* 设置内边距 */
+	float:left; /* 往左浮动 */
+	width:auto;
+	height:25px;
+	background-color:#FFFFFF;
+	text-align:center;
+}
+
+.navlist li a{
+	text-decoration:none;
+	color:blue;
+}
+
+a:link, a:visited {
+	text-decoration:none;
+	color:blue;
+}
+
+.navlist li img{
+	cursor:pointer;
+}

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>帮助文档</title>
+  <style>
+	::-webkit-scrollbar
+	{
+		width: 6px;
+		height: 6px;
+	}
+	::-webkit-scrollbar-track-piece
+	{
+		background-color: #CCCCCC;
+		-webkit-border-radius: 6px;
+	}
+	::-webkit-scrollbar-thumb:vertical
+	{
+		height: 5px;
+		background-color: #999999;
+		-webkit-border-radius: 6px;
+	}
+	::-webkit-scrollbar-thumb:horizontal
+	{
+		width: 5px;
+		background-color: #CCCCCC;
+		-webkit-border-radius: 6px;
+	}
+	img {
+		max-width:80%;
+	}
+	b{
+		font-size:12px;
+	}
+	p {
+		font-size:10pt;
+	}
+  </style>
+</head>
+<body>
+	<div class="mainView">
+		<b>代码模板生成器帮助文档</b>
+		<p>本程序可用于根据模板自动生成代码，如有需要，可改进。</p>
+		<p>
+			<b>场景：</b>
+			当我们做一些繁琐又重复的文本处理时(比如开发时使用三层架构，每次做新功能可能都要建service,dao等基础层)，我们会觉得枯燥、麻烦。这时候，我们可以提取一个模板，然后，批量处理！
+		</p>
+		<p>本程序逻辑很简单，读取模板文件-&gt;替换指定字符串-&gt;生成文件到指定目录。界面仅做数据处理，具体逻辑请参考<b>com.xuanyimao.polj.modeldeal.jsimpl.modelDealImpl</b></p>
+		<p style="color:red;">注意：可能会因为某些不小心的操作导致原文件被替换，建议建一个专用目录，将文件生成到该目录后再手动复制过去替换。数据无价，谨慎操作！</p>
+		<hr/>
+		<b>操作流程</b>
+		<p>在项目根目录下，app/modeldeal/model下有一个测试用的模板文件：<b>{entity}Service.java</b></p>
+		<p>
+		<b>1.点击新建模板，新建一个模板。每个模板对应一套模板文件及配置，可复制。</b><br/>
+		<img src="../image/img1.png"/>
+		</p>
+		<p>
+		<b>2.点击“添加模板文件”，选择模板文件（可多选）</b><br/>
+		<img src="../image/img2.png"/>
+		</p>
+		<p>
+		<b>3.点击“编辑”或者双击单元格，设置目标文件路径(文件生成路径)。一般我们会把它生成到项目的某个目录下，我这里把它保存到d:\service\，因为路径可能会变化，配置成关键词：{pj}</b><br/>
+		<img src="../image/img3.png"/>
+		</p>
+		<p>
+		<b>
+		4.配置关键词。关键词即模板文件中的 {date}、{entity}这些字符串，可以理解为设置的一些特殊字符串，你可以自定义格式，只要不和模板文件的中不需要替换的内容有冲突就行。<br>
+		&nbsp;&nbsp;添加一个关键词{pj}，替换的文本为：d:\service，可以看到，模板文件配置下的目标文件真实路径已发生改变。<br/>
+		&nbsp;&nbsp;将模板文件中的关键词一一设置好。<br/>
+		</b>
+		<img src="../image/img4.png"/><br/>
+		<img src="../image/img5.png"/>
+		</p>
+		<p>
+		<b>5.点击“生成目标文件”，去目标文件夹查看生成是否无误<span style="color:red;">(切记不要做直接替换工程代码这样的危险操作，建议将文件生成到指定目录后再复制过去替换)</span></b><br/>
+		<img src="../image/img6.png"/><br/>
+		<img src="../image/img7.png"/>
+		</p>
+		<p>
+			Author:玄翼猫，个人网站:<a href="http://www.xuanyimao.com" target="_blank">http://www.xuanyimao.com</a>
+		</p>
+	</div>
+</body>
+</html>

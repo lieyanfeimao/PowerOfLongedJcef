@@ -1,0 +1,1031 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>主页</title>
+  <link rel="stylesheet" type="text/css" href="static/easyui/themes/default/easyui.css">
+  <link rel="stylesheet" type="text/css" href="static/easyui/themes/icon.css">
+  <link rel="stylesheet" type="text/css" href="static/css/index.css">
+</head>
+<body>
+<div id="initView" style="width:100%;height:100%;position:absolute;left: 0px;top: 0px;z-index:100;background-color:#FFFFFF;text-align:center;">
+	<div style="position:relative;top:40%;"><img src="static/image/loading.gif" width="50" height="50"/></div>
+</div>
+
+	<div class="easyui-tabs" id="tabs">
+        <div title="首页" style="padding:10px;" selected="true">
+		
+			<div class="easyui-panel" title="应用列表"
+				style="width:100%;height:auto;padding:10px;background:#fafafa;"
+				>
+				<ul class="imglist" id="appHtml">
+					
+
+				</ul>
+			</div>
+			
+			<div style="height:20px;"></div>
+			
+			<div id="navurl" style="padding:10px;" title="网址导航">
+				<ul class="navlist" id="navHtml">
+					<li><a href="#">测试连接1</a></li>
+					<li>
+					<a href="#">测试连接1测试连接1</a>
+					<img src="static/image/edit.png" style="width:12px;height:12px;" class="opbtn" onclick="editScRow(this)" title="编辑"/>
+					<img src="static/image/delete.png" style="width:12px;height:12px;" class="opbtn" onclick="editScRow(this)" title="删除"/>
+					</li><li><a href="#">测试连接1测试连接1</a></li><li><a href="#">测试连接1</a></li><li><a href="#">测试连接1</a></li><li><a href="#">测试连接1</a></li><li><a href="#">测试连接1</a></li>
+					<li><a href="#">测试连接1</a></li><li><a href="#">测试连接1测试连接1</a></li><li><a href="#">测试连接1</a></li><li><a href="#">测试连接1</a></li><li><a href="#">测试连接1</a></li><li><a href="#">测试连接1</a></li>
+					<li><a href="#">测试连接1测试连接1</a></li><li><a href="#">测试连接1测试连接1测试连接1测</a></li><li><a href="#">测试连接1</a></li>
+				</ul>
+			</div>
+			
+        </div>
+        
+		<div title="应用管理" style="padding:10px;">
+            <table id="appList"></table>
+        </div>
+		
+        <div title="脚本管理" style="padding:10px;">
+            <table id="scConfigList"></table>
+			<div style="color:red;padding:10px;">
+			1.请将脚本文件放在软件的scp目录下<br/>
+			2.注入方式：默认为手动注入 0，自动注入为 1<br/>
+			3.注入的链接：链接为正则表达式，可配置多个网址，示例&nbsp;&nbsp;^((https|http)://baidu.com.*?|(https|http)://test1.com.*?)<br/>
+			4.只有“名称”有值时才会显示在鼠标右键菜单。如果为自动注入，必须配置“注入的链接”<br/>
+			5.修改脚本文件后，请点击“重载脚本”，以便下次注入时生效
+			</div>
+			测试链接：<input type="text" id="turl" style="width:60%;" class="easyui-validatebox" />&nbsp;&nbsp;<a href="javascript:openurl()" class="easyui-linkbutton">打开链接</a>
+			&nbsp;<a href="javascript:reloadScript()" class="easyui-linkbutton">重载脚本</a>
+        </div>
+    </div>
+	
+	<!-- 导航管理开始 -->
+	<div id="editNav" style="display:none;padding:10px;">
+		<input type="hidden" name="nav_id" id="nav_id"/>
+		<table>
+			<tr>
+				<td class="tdpre">名称:</td>
+				<td><input class="easyui-validatebox" type="text" name="nav_name" id="nav_name"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">链接地址:</td>
+				<td><input class="easyui-validatebox" type="text" name="nav_url" id="nav_url"/></td>
+			</tr>
+		</table>
+	</div>
+	<!-- 导航管理结束 -->
+	
+	<!-- 应用管理配置 开始 -->
+	<div id="modelApp">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:appPkg();">应用打包</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:appInstall();">应用安装</a>
+	</div>
+	<!-- 编辑配置 -->
+	<div id="pkgApp" style="display:none;padding:10px;">
+		<table id="fileList"></table>
+		<table id="scConfigList1"></table>
+		<table>
+			<tr>
+				<td class="tdpre">应用ID:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_id" id="app_id"/></td>
+				<td class="tdpre">应用名称:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_name" id="app_name"/></td>
+			</tr>
+			
+			<tr>
+				<td class="tdpre">版本号:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_version" id="app_version"/></td>
+				<td class="tdpre">版本号数字:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_versionNum" id="app_versionNum"/></td>
+			</tr>
+			
+			<tr>
+				<td class="tdpre">应用图标:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_icon" id="app_icon"/></td>
+				<td class="tdpre">应用启动文件路径:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_path" id="app_path"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">扫描的包:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_scannerpkg" id="app_scannerpkg"/></td>
+				<td class="tdpre">加载的Jar包:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_libjar" id="app_libjar"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">应用包保存路径:</td>
+				<td><input class="easyui-validatebox" type="text" name="app_appPkg" id="app_appPkg"/></td>
+			</tr>
+		</table>
+		
+		
+	</div>
+	
+	<div id="modelPkgApp">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addAppFolder();">添加目录</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addAppFiles();">添加文件</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:saveAllAppConfig();">保存全部</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-delete" plain="true" onclick="javascript:deleteFileList();">删除选中文件</a>
+		
+	</div>
+	<!-- 应用管理 结束 -->
+	
+	<!-- 脚本配置 开始 -->
+	<div id="modelsc">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:saveAllSc();">保存全部</a>
+	</div>
+	
+	<div id="editSc" style="display:none;padding:10px;">
+		<input type="hidden" name="scId" id="scId"/>
+		<table>
+			<tr>
+				<td class="tdpre">脚本文件:</td>
+				<td>
+				<div id="sc_file"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="tdpre">名称:</td>
+				<td><input class="easyui-validatebox" type="text" name="sc_name" id="sc_name"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">注入的链接:</td>
+				<td><input class="easyui-validatebox" type="text" name="sc_url" id="sc_url"/></td>
+			</tr>
+			<tr>
+				<td class="tdpre">注入方式:</td>
+				<td><input class="easyui-validatebox" type="text" name="sc_type" id="sc_type"/></td>
+			</tr>
+		</table>
+	</div>
+	<!-- 脚本配置 结束 -->
+</body>
+</html>
+<script src="static/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="static/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="static/js/common.js"></script>
+<script>
+	/**应用配置**/
+	var appConfig=new Array();
+	
+	/**脚本配置**/
+	var scConfig=new Array();
+	
+	/**导航管理*/
+	var navConfig=new Array();
+	
+	//脚本文件保存路径
+	var SCFILE="scconfig";
+	//导航文件保存路径
+	var NAVFILE="navconfig";
+	
+	var batchMode=false;
+	
+	//appId，用于数据存储
+	var appId="index";
+	//是否为初始化状态
+	var initStatus=false;
+	/**通用的文件目录**/
+	var COMMON_FILEPATH="";
+	//应用打包用到的文件
+	var pkgFiles=new Array();
+	
+	var infoTitle="提示";
+	
+	var NAVINDEX=0;
+	//数据格式
+	/**
+	appConfig=[
+		{
+			id:1,
+			name:'应用名',
+			...
+		},...
+	];
+	scConfig=[
+		{
+			id:1,
+			name:'test',
+			url:'http://xxxx',
+			file:'yz.txt',//不可编辑
+			type:'0'  //默认为手动注入 0，自动注入为 1
+		},...
+	];
+	
+	navconfig=[
+		{
+			id:1,
+			name:'xxx',
+			url:'xxxx'
+		},...
+	]
+	**/
+	
+	function openurl(){
+		window.open($("#turl").val());
+	}
+	
+	function reloadScript(){
+		execJava('reloadScript',null,function(data){
+			infoMsg("重载完成！");
+		});
+	}
+	
+	//显示info信息
+	function infoMsg(msg){
+		$.messager.alert("警告",msg,'info');
+	}
+	
+	$(document).ready(function(){
+		//网址导航
+		$('#navurl').panel({
+			width:"100%",
+			height:"auto",
+			tools:[{
+			iconCls:'icon-add',
+			handler:function(){
+				addNav();
+			}
+			},{
+			iconCls:'icon-edit',
+			handler:function(){
+				editNavList();
+			}
+			}]
+		}); 
+		
+		$('#tabs').tabs({
+			width:"100%",
+　　    	height: $(window).height()-20
+        });
+		$('#tabs').tabs("resize");
+		$(window).resize(function(){
+			$('#tabs').tabs({
+	　　    	height: $(window).height()-20
+			});
+		});
+		
+		//获取AppPath
+		execJava("appPath",null,function(data){
+			COMMON_FILEPATH=data.result;
+		});
+		
+		
+		$('#appList').datagrid({
+			columns:[
+				[
+					{field:'id1',checkbox:true},
+					{field:'id',title:'应用ID',width:100},
+					{field:'name',title:'应用名称',width:100},
+					{field:'version',title:'版本号',width:100},
+					{field:'icon',title:'图标',width:100},
+					{field:'path',title:'启动文件',width:300},
+					{field:'scannerpkg',title:'扫描的包',width:300},
+					{field:'libjar',title:'加载的jar',width:300},
+					{field:'op',title:'操作',width:100,align:'center'
+						,formatter:function(value,rowData,rowIndex){
+							return '<img src="static/image/delete.png" class="opbtn" onclick="deleteAppListRow(this)" title="删除"/>';
+						}
+					}
+				]
+			]
+			,toolbar:'#modelApp'
+			,title:'应用信息管理'
+			,width:'100%'
+			,height:'500px'
+			,resizeHandle:'right'
+			,data:[
+			]
+		});
+		
+		$('#scConfigList').datagrid({
+			columns:[
+				[
+					{field:'id',checkbox:true},
+					{field:'file',title:'脚本文件',width:200},
+					{field:'name',title:'名称',width:200,editor:'text'},
+					{field:'url',title:'注入的链接',width:400,editor:'text'},
+					{field:'type',title:'注入方式',width:400,editor:'text'},
+					{field:'op',title:'操作',width:100,align:'center'
+						,formatter:function(value,rowData,rowIndex){
+						//infoMsg(JSON.stringify(rowData));
+							if (rowData["edit"]){
+								var s = '<img src="static/image/save.png" class="opbtn" onclick="saveScRow(this)" title="保存"/>&nbsp;&nbsp;';
+								s+='<img src="static/image/cancel.png" class="opbtn" onclick="cancelScRow(this)" title="取消"/>';
+								return s;
+							} else {
+								var s = '<img src="static/image/edit.png" class="opbtn" onclick="editScRow(this)" title="编辑"/>&nbsp;&nbsp;';
+								return s;
+							}
+						}
+					}
+				]
+			]
+			,toolbar:'#modelsc'
+			,title:'脚本配置'
+			,width:'100%'
+			,height:'500px'
+			,resizeHandle:'right'
+			,data:[
+			]
+			,onDblClickCell: function(index,field,value){
+				$(this).datagrid('beginEdit', index);
+				var ed = $(this).datagrid('getEditor', { index: index, field: field });
+				if(ed != null) $(ed.target).focus();
+				//console.log(index);
+			}
+			,onBeforeEdit:function(index,rowData){
+				rowData["edit"] = true;
+				updateActions(this,index,rowData);
+			}
+			,onAfterEdit:function(index,rowData,changes){
+				rowData["edit"] = false;
+				//保存数据
+				if(!batchMode) saveScData();
+				updateActions(this,index,rowData);
+			}
+			,onCancelEdit:function(index,rowData){
+				rowData["edit"] = false;
+				updateActions(this,index,rowData);
+			}
+		});
+		
+		$('#fileList').datagrid({
+			columns:[
+				[
+					{field:'id',checkbox:true},
+					{field:'fileName',title:'目标文件',width:500,formatter:function(value,rowData,rowIndex){
+							return '<span title="'+value+'">'+value+'</span><div class="icon-folder openfolder" onclick="changeFilePath('+rowIndex+')"></div>';
+						}
+					},
+					{field:'exportPath',title:'解压路径',width:300,editor:'text'},
+					{field:'op',title:'操作',width:100,align:'center'
+						,formatter:function(value,rowData,rowIndex){
+							if (rowData["edit"]){
+								var s = '<img src="static/image/save.png" class="opbtn" onclick="saveFileListRow(this)" title="保存"/>&nbsp;&nbsp;';
+								s+='<img src="static/image/cancel.png" class="opbtn" onclick="cancelFileListRow(this)" title="取消"/>';
+								return s;
+							} else {
+								//var s = '<img src="static/image/edit.png" class="opbtn" onclick="editFileListRow(this)" title="编辑"/>&nbsp;&nbsp;';
+								var s='<img src="static/image/delete.png" class="opbtn" onclick="deleteFileListRow(this)" title="删除"/>';
+								return s;
+							}
+						}
+					}
+				]
+			]
+			,toolbar:'#modelPkgApp'
+			,title:'打包文件配置'
+			,width:'100%'
+			,height:'250px'
+			,resizeHandle:'right'
+			,data:pkgFiles
+			,onDblClickCell: function(index,field,value){
+				$(this).datagrid('beginEdit', index);
+				var ed = $(this).datagrid('getEditor', { index: index, field: field });
+				if(ed != null) $(ed.target).focus();
+				//console.log(index);
+			}
+			,onBeforeEdit:function(index,rowData){
+				rowData["edit"] = true;
+				updateActions(this,index,rowData);
+			}
+			,onAfterEdit:function(index,rowData,changes){
+				rowData["edit"] = false;
+				//保存数据
+				updateActions(this,index,rowData);
+			}
+			,onCancelEdit:function(index,rowData){
+				rowData["edit"] = false;
+				updateActions(this,index,rowData);
+			}
+		});
+		
+		$('#scConfigList1').datagrid({
+			columns:[
+				[
+					{field:'id',checkbox:true},
+					{field:'file',title:'脚本文件',width:100},
+					{field:'name',title:'名称',width:100},
+					{field:'url',title:'注入的链接',width:400},
+					{field:'type',title:'注入方式',width:400}
+				]
+			]
+			,title:'脚本列表'
+			,width:'100%'
+			,height:'250px'
+			,resizeHandle:'right'
+			,data:[
+			]
+		});
+		
+		//读取脚本配置
+		readScData(function(data){
+			if(data!=""){
+				scConfig=JSON.parse(data);
+			}
+			//拿到所有配置文件
+			execJava('configFiles',null,function(data1){
+				var files=new Array();
+				if(data1 && data1.result){
+					files=data1.result;
+				}
+				
+				var nsc=new Array();
+				for(var i=0;i<files.length;i++){
+					var leng=nsc.length;
+					nsc[leng]={id:nsc.length,name:'',file:files[i],url:'',type:'0'};
+					for(var j=0;j<scConfig.length;j++){
+						if(scConfig[j].file==nsc[leng].file){
+							nsc[leng].name=scConfig[j].name;
+							nsc[leng].url=scConfig[j].url;
+							nsc[leng].type=scConfig[j].type;
+							break;
+						}
+					}
+				}
+				scConfig=nsc;
+				$('#scConfigList').datagrid({
+					data:scConfig
+				});
+				saveScData();
+			});
+		});
+		//读取导航数据
+		readNavData(function(data){
+			if(data!=""){
+				navConfig=JSON.parse(data);
+				if(navConfig.length>0) NAVINDEX=navConfig[navConfig.length-1].id+1;
+			}
+			refreshNavList();
+		});
+		
+		
+		refreshAppList();
+	});
+	//添加导航
+	function addNav(){
+		$("#nav_id").val("");
+		$("#nav_name").val("");
+		$("#nav_url").val("");
+		$('#editNav').dialog({
+			title: '添加导航',
+			width: '300px',
+			height: '150px',
+			closed: false,
+			cache: false,
+			modal: true,
+			buttons:[{
+				text:'&nbsp;保存&nbsp;',
+				handler:function(){
+					var nav={};
+					nav["id"]=NAVINDEX++;
+					nav["name"]=$("#nav_name").val();
+					nav["url"]=$("#nav_url").val();
+					navConfig[navConfig.length]=nav;
+					saveNavData();
+					infoMsg("添加导航成功！");
+					$('#editNav').dialog("close");
+					refreshNavList();
+				}
+			},{
+				text:'&nbsp;取消&nbsp;',
+				handler:function(){
+					$('#editNav').dialog("close");
+				}
+			}]
+		});
+	}
+	//编辑导航
+	function editNavById(id){
+		var nav;
+		for(var i=0;i<navConfig.length;i++){
+			if(navConfig[i].id==id){
+				nav=navConfig[i];
+				break;
+			}
+		}
+		if(!nav){
+			infoMsg("未找到该导航数据！");
+			return;
+		}
+		$("#nav_id").val(nav.id);
+		$("#nav_name").val(nav.name);
+		$("#nav_url").val(nav.url);
+		
+		$('#editNav').dialog({
+			title: '编辑导航',
+			width: '300px',
+			height: '150px',
+			closed: false,
+			cache: false,
+			modal: true,
+			buttons:[{
+				text:'&nbsp;保存&nbsp;',
+				handler:function(){
+					nav["id"]=$("#nav_id").val();
+					nav["name"]=$("#nav_name").val();
+					nav["url"]=$("#nav_url").val();
+					saveNavData();
+					infoMsg("修改成功！");
+					$('#editNav').dialog("close");
+					updateNavList();
+				}
+			},{
+				text:'&nbsp;取消&nbsp;',
+				handler:function(){
+					$('#pkgApp').dialog("close");
+				}
+			}]
+		});
+	}
+	
+	function delNavById(id){
+		var nav;
+		var ind=-1;
+		for(var i=0;i<navConfig.length;i++){
+			if(navConfig[i].id==id){
+				nav=navConfig[i];
+				ind=i;
+				break;
+			}
+		}
+		if(!nav){
+			infoMsg("未找到该导航数据！");
+			return;
+		}
+		$.messager.confirm(infoTitle,'你真的要删除&nbsp;<span style="color:red;">'+nav.name+'</span>&nbsp;吗?',function(r){
+			if(r){
+				navConfig.splice(ind,1);
+				saveNavData();
+				infoMsg("删除成功！");
+				updateNavList();
+			}
+		});
+	}
+	
+	/**刷新导航列表**/
+	function refreshNavList(){
+		var $str='';
+		for(var i=0;i<navConfig.length;i++){
+			$str+='<li><a href="'+navConfig[i].url+'" target="_blank" title="'+navConfig[i].url+'">'+navConfig[i].name+'</a></li>';
+		}
+		$("#navHtml").html($str);
+	}
+	
+	var nav_updflag=false;
+	function editNavList(){
+		if(!nav_updflag){
+			updateNavList();
+			nav_updflag=true;
+		}else{
+			refreshNavList();
+			nav_updflag=false;
+		}
+	}
+	/**操作导航列表**/
+	function updateNavList(){
+		var $str='';
+		for(var i=0;i<navConfig.length;i++){
+			$str+='<li><a href="'+navConfig[i].url+'" target="_blank" title="'+navConfig[i].url+'">'+navConfig[i].name+'</a>';
+			$str+='<img src="static/image/edit.png" style="width:12px;height:12px;" class="opbtn" onclick="editNavById('+navConfig[i].id+');" title="编辑"/>';
+			$str+='<img src="static/image/delete.png" style="width:12px;height:12px;" class="opbtn" onclick="delNavById('+navConfig[i].id+');" title="删除"/>';
+			$str+='</li>';
+		}
+		$("#navHtml").html($str);
+	}
+	
+	//保存所有导航数据
+	function saveNavData(){
+		var data = JSON.stringify(navConfig);
+		saveData(NAVFILE,data,"",function(data){
+			execJava('loadConfigFiles',null);
+		});
+	}
+	//读取保存的所有导航数据
+	function readNavData(func){
+		readData(NAVFILE,func);
+	}
+	
+	//刷新应用列表
+	function refreshAppList(){
+		execJava("getAppList",null,function(data){
+			var r=data.result;
+			var $str="";
+			for(var i=0;i<r.length;i++){
+				$str+='<li title="'+r[i].name+'" onclick="openApp(\''+r[i].id+'\',\''+r[i].path.replace(/\\/g,"\\\\")+'\')">';
+				var icon=r[i].icon;
+				if(icon==""){
+					icon="logo.png";
+				}
+				$str+='<img src="'+icon+'">';
+				$str+='<div class="txt">'+r[i].name+'</div>';
+				$str+='</li>';
+			}
+			$("#appHtml").html($str);
+			
+			$('#appList').datagrid({
+				data:data.result
+			});
+		});
+	}
+	/**打开指定的APP*/
+	function openApp(id,path){
+		if(path) window.open(path);
+		else infoMsg("此应用不支持打开");
+	}
+	//删除指定应用
+	function deleteAppListRow(target){
+		var rowIndex=getRowIndex(target);
+		var rows = $('#appList').datagrid('getRows');
+		var row=rows[rowIndex];
+		
+		$.messager.confirm(infoTitle,'你真的要删除应用&nbsp;<span style="color:red;">'+row.name+'</span>&nbsp;吗?(为避免误删，应用文件不会被删除，请手动删除或自行开发此功能！)',function(r){
+			if (r){
+				execJava("deleteApp",{id:row.id},function(data){
+					$('#appList').datagrid('deleteRow', rowIndex);
+					infoMsg("删除成功！");
+				});
+			}
+		});
+	}
+	
+	//保存
+	function saveFileListRow(target){
+		var rowIndex=getRowIndex(target);
+		$('#fileList').datagrid('endEdit', rowIndex);
+	}
+	//取消
+	function cancelFileListRow(target){
+		$('#fileList').datagrid('cancelEdit', getRowIndex(target));
+	}
+	//编辑
+	//function editFileListRow(target){
+		//打开编辑界面
+	//}
+	//删除选中数据
+	function deleteFileList(){
+		//获取选中的数据
+		var list=$('#fileList').datagrid('getSelections');
+		//弹窗询问是否删除
+		if(list.length==0){
+			infoMsg("请选择要删除的数据!");
+			return;
+		}
+		$.messager.confirm(infoTitle,'你真的要删除选中的文件记录吗?',function(r){
+			if (r){
+				for(var i=0;i<list.length;i++){
+					var index=$('#fileList').datagrid('getRowIndex',list[i]);
+					$('#fileList').datagrid('deleteRow', index);
+				}
+				infoMsg("删除成功！");
+			}
+		});
+	}
+	//删除记录行
+	function deleteFileListRow(target){
+		$.messager.confirm(infoTitle,'你真的要删除这条文件配置记录吗?',function(r){
+			if (r){
+				var rowIndex=getRowIndex(target);
+				$('#fileList').datagrid('deleteRow', rowIndex);
+				infoMsg("删除成功！");
+			}
+		});
+	}
+	
+	//保存所有文件配置
+	function saveAllAppConfig(){
+		if(pkgFiles.length==0){
+			infoMsg("保存成功！");
+			return;
+		}
+		batchModel=true;
+		try{
+			//获取所有正在编辑的列
+			for(var i=0;i<pkgFiles.length;i++){
+				$('#fileList').datagrid('endEdit', i);
+			}
+		}catch(e){
+		}
+		
+		batchModel=false;
+		infoMsg("保存成功!");
+	}
+	
+	//更新文件路径
+	function changeFilePath(rowIndex){
+		var row=pkgFiles[rowIndex];
+		if(!row){
+			return;
+		}
+		var model="FILE_DIALOG_OPEN";
+		var filePath=row.fileName;
+		if(row.isFolder){
+			model="FILE_DIALOG_SAVE";
+		}
+		
+		execJava("fileDialog",{'title':'文件选择框',model:model,filePath:filePath},function(data){
+			var r=data.result;
+			if(r.length>0){
+				
+				var data=pkgFiles[rowIndex];
+				var fn=r[0];
+				if(data.isFolder){
+					var i1=fn.lastIndexOf("\\");
+					if(i1!=-1){
+						fn=fn.substr(0,i1);
+					}
+				}
+				data["fileName"]=fn;
+				
+				$('#fileList').datagrid('updateRow',{
+					index: rowIndex,
+					row:{data:data}
+				});
+			}
+		});
+	}
+	
+	//添加目录
+	function addAppFolder(){
+		execJava("fileDialog",{'title':'选择目录',model:'FILE_DIALOG_SAVE',filePath:COMMON_FILEPATH},function(data){
+			var r=data.result;
+			for(var i=0;i<r.length;i++){
+				var flag=false;
+				for(var j=0;j<pkgFiles.length;j++){
+					if(r[i]==pkgFiles[j].fileName){
+						flag=true;
+						break;
+					}
+				}
+				if(!flag){
+					var i1=r[i].lastIndexOf("\\");
+					var fn=r[i];
+					if(i1!=-1){
+						fn=fn.substr(0,i1);
+					}
+					pkgFiles[pkgFiles.length]={fileName:fn,exportPath:"",isFolder:true};
+				}
+			}
+			
+			if(r.length>0){//设置文件夹路径
+				COMMON_FILEPATH=r[0];
+			}
+			$('#fileList').datagrid({
+				data:pkgFiles
+			});
+			
+		});
+	}
+	//添加文件
+	function addAppFiles(){
+		execJava("fileDialog",{'title':'选择文件-多选',model:'FILE_DIALOG_OPEN_MULTIPLE',filePath:COMMON_FILEPATH},function(data){
+			var r=data.result;
+			
+			for(var i=0;i<r.length;i++){
+				var flag=false;
+				for(var j=0;j<pkgFiles.length;j++){
+					if(r[i]==pkgFiles[j].fileName){
+						flag=true;
+						break;
+					}
+				}
+				if(!flag){
+					pkgFiles[pkgFiles.length]={fileName:r[i],exportPath:"",isFolder:false};
+				}
+			}
+			if(r.length>0){//设置文件夹路径
+				COMMON_FILEPATH=r[0];
+			}
+			$('#fileList').datagrid({
+				data:pkgFiles
+			});
+			
+		});
+	}
+	//应用安装
+	function appInstall(){
+		execJava("fileDialog",{'title':'选择目录',model:'FILE_DIALOG_OPEN',filePath:COMMON_FILEPATH},function(data){
+			var r=data.result;
+			
+			if(r.length>0){//设置文件夹路径
+				COMMON_FILEPATH=r[0];
+				//调用APP安装方法
+				execJava("installApp",{path:r[0]},function(data){
+					infoMsg("应用安装成功！");
+					refreshAppList();
+				});
+			}
+		});
+	}
+	//应用打包
+	function appPkg(){
+		$("#app_id").val("helpdoc");
+		$("#app_name").val("JCEF开发文档");
+		$("#app_version").val("V1.0");
+		$("#app_versionNum").val("1");
+		$("#app_icon").val("{appPath}/icon.png");
+		$("#app_path").val("{appPath}/index.html");
+		$("#app_scannerpkg").val("");
+		$("#app_libjar").val("");
+		$("#app_appPkg").val("d:\\helpdoc.zip");
+		
+		$('#scConfigList1').datagrid({
+			data:scConfig
+		});
+		$('#pkgApp').dialog({
+			title: '应用打包',
+			width: '80%',
+			height: '80%',
+			closed: false,
+			cache: false,
+			modal: true,
+			buttons:[{
+				text:'&nbsp;打包&nbsp;',
+				handler:function(){
+					var pkg={};
+					//获取appConfig信息
+					var appConfig={};
+					appConfig.id=$("#app_id").val();
+					appConfig.name=$("#app_name").val();
+					appConfig.version=$("#app_version").val();
+					appConfig.versionNum=$("#app_versionNum").val();
+					appConfig.icon=$("#app_icon").val();
+					appConfig.path=$("#app_path").val();
+					appConfig.scannerpkg=$("#app_scannerpkg").val();
+					appConfig.libjar=$("#app_libjar").val();
+					//appConfig.appPkg=$("#app_appPkg").val();
+					
+					pkg["appConfig"]=appConfig;
+					pkg["appPkg"]=$("#app_appPkg").val();
+					//获取要压缩的文件，去除解压路径为空的目录
+					for(var i=0;i<pkgFiles.length;i++){
+						if(pkgFiles[i].exportPath==""){
+							pkgFiles.splice(i,1);
+							i--;
+						}
+					}
+					
+					pkg["fileConfigs"]=pkgFiles;
+					
+					//获取要添加的脚本
+					//获取选中的数据
+					var list=$('#scConfigList1').datagrid('getSelections');
+					var nscp=new Array();
+					for(var i=0;i<list.length;i++){
+						nscp[i]=scConfig[i];
+					}
+					if(nscp.length>0){
+						pkg["scpConfigs"]=nscp;
+					}
+					
+					execJava("createInstallPkg",{pkg:pkg},function(data){
+						infoMsg("应用打包成功"+data.msg);
+					});
+				}
+			},{
+				text:'&nbsp;取消&nbsp;',
+				handler:function(){
+					$('#pkgApp').dialog("close");
+				}
+			}]
+		});
+	}
+	
+	
+	//保存所有脚本配置
+	function saveAllSc(){
+		if(scConfig.length==0){
+			infoMsg("保存成功！");
+			return;
+		}
+		batchMode=true;
+		try{
+			//获取所有正在编辑的列
+			for(var i=0;i<scConfig.length;i++){
+				$('#scConfigList').datagrid('endEdit', i);
+			}
+		}catch(e){
+		}
+		batchMode=false;
+		saveScData();
+		infoMsg("保存成功!");
+	}
+
+	//编辑脚本配置
+	function editScRow(target){
+		var rowIndex=getRowIndex(target);
+		var rows = $('#scConfigList').datagrid('getRows');//获得所有行
+		var row = rows[rowIndex];
+		$("#scId").val(row.id);
+		for (let key in row) {
+			if(key=="file"){
+				$("#sc_file").html(row[key]);
+			}else{
+				$("#sc_"+key).val(row[key]);
+			}
+		}
+		
+		$('#editSc').dialog({
+			title: '脚本信息编辑',
+			width: 'auto',
+			height: 'auto',
+			closed: false,
+			cache: false,
+			modal: true,
+			buttons:[{
+				text:'&nbsp;保存&nbsp;',
+				handler:function(){
+					var id=$("#scId").val();
+					var name=$("#sc_name").val();
+					var url=$("#sc_url").val();
+					var type=$("#sc_type").val();
+
+					for(var i=0;i<scConfig.length;i++){
+						if(scConfig[i].id==id){
+							scConfig[i].name=name;
+							scConfig[i].url=url;
+							scConfig[i].type=type;
+							
+							scConfig[i]["edit"]=false;
+							//更新数据
+							$("#scConfigList").datagrid('updateRow',{
+								index: rowIndex,
+								row:{data:scConfig[i]}
+							});
+							break;
+						}
+					}
+					
+					saveScData();
+					infoMsg("保存成功！");
+					$('#editSc').dialog("close");
+				}
+			},{
+				text:'&nbsp;取消&nbsp;',
+				handler:function(){
+					$('#editSc').dialog("close");
+				}
+			}]
+		});
+	}
+
+	//保存脚本配置记录行
+	function saveScRow(target){
+		$('#scConfigList').datagrid('endEdit', getRowIndex(target));
+	}
+	//取消脚本配置记录行
+	function cancelScRow(target){
+		$('#scConfigList').datagrid('cancelEdit', getRowIndex(target));
+	}
+
+	//保存所有脚本数据
+	function saveScData(){
+		var data = JSON.stringify(scConfig);
+		saveData(SCFILE,data,"",function(data){
+			execJava('loadConfigFiles',null);
+		});
+	}
+	//读取保存的所有脚本数据
+	function readScData(func){
+		readData(SCFILE,func);
+	}
+	//获取数据索引
+	function getRowIndex(target){
+		var tr = $(target).closest('tr.datagrid-row');
+		return parseInt(tr.attr('datagrid-row-index'));
+	}
+	function updateActions(obj,index,rowData){
+		$(obj).datagrid('updateRow',{
+			index: index,
+			row:{data:rowData}
+		});
+	}
+	//保存模板数据
+	function saveData(fileName,data,msg,func){
+		if(!fileName){
+			fileName="";
+		}
+		execJava('writeAppData',{appId:appId,data:data,fileName:fileName},function(data){
+			if(msg) infoMsg(msg);
+			if(typeof func=="function"){
+				func(data.result);
+			}
+		});
+	}
+
+	//读取模板数据
+	function readData(fileName,func){
+		execJava('readAppData',{appId:appId,fileName:fileName},function(data){
+			if(typeof func=="function"){
+				func(data.result);
+			}
+		});
+	}
+	//页面渲染完成后调用
+	$.parser.onComplete = function () {
+		if(!initStatus){
+			$("#initView").hide(1000);
+			initStatus=true;
+		}
+	}
+</script>
