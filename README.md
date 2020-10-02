@@ -1,3 +1,7 @@
+## 由于JCEF的体验远不及JxBrowser，本项目停止维护，您可以继续使用本项目，或移步JxBrowser项目PowerOfLongedJxBrowser（该项目不提供许可证，如果你无法获取JxBrowser许可证，那就继续使用JCEF吧）。  
+## github：https://github.com/lieyanfeimao/PowerOfLongedJxBrowser  
+## 码云：https://gitee.com/edadmin/PowerOfLongedJxBrowser
+
 ## 工程导入
 编译环境：JDK1.8  
 将lib下的jar包Add to build path，解压binary_win64目录下的binary_win64.zip，解压时请选择“解压到当前文件夹”（所有二进制文件加起来160M）  
