@@ -71,6 +71,9 @@ public class CefManager{
 		this.isTransparent=isTransparent;
 		CefSettings settings = new CefSettings();
         settings.windowless_rendering_enabled = useOSR;
+        //模拟手机
+//        settings.user_agent="Mozilla/5.0 & #40;Linux; U; Android 8.0.0; zh-CN; MI 6 Build/OPR1.170623.027& #41; AppleWebKit/537.36 & #40;KHTML, like Gecko& #41; Version/4.0 Chrome/69.0.3497.100 UWS/3.20.0.31 Mobile Safari/537.36 UCBS/3.20.0.31_190923233723 NebulaSDK/1.8.100112 Nebula AlipayDefined& #40;nt:WIFI,ws:360|0|3.0& #41; AliApp& #40;AP/10.1.75.7000& #41;";
+        
         cefApp= CefApp.getInstance(args,settings);
         client = cefApp.createClient();
         //注册一些handler

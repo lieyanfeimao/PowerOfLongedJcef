@@ -1,6 +1,7 @@
-## 由于JCEF的体验远不及JxBrowser，本项目停止维护，您可以继续使用本项目，或移步JxBrowser项目PowerOfLongedJxBrowser（该项目不提供许可证，如果你无法获取JxBrowser许可证，那就继续使用JCEF吧）。  
+## 由于JCEF的体验远不及JxBrowser，本项目停止维护，您可以继续使用本项目，或移步JxBrowser项目PowerOfLongedJxBrowser（该项目不提供许可证，如果你无法获取JxBrowser许可证，那就继续使用JCEF吧）。    
+##  虽然项目停止更新，为帮助小伙伴们学习JCEF，本人仍会不定时编译最新的JCEF源码，翻译其文档。本工程更新于2020.11.9,使用此日期为止的最新JCEF工程编译  
 ## github：https://github.com/lieyanfeimao/PowerOfLongedJxBrowser  
-## 码云：https://gitee.com/edadmin/PowerOfLongedJxBrowser
+## 码云：https://gitee.com/edadmin/PowerOfLongedJxBrowser  
 
 ## 工程导入
 编译环境：JDK1.8  
